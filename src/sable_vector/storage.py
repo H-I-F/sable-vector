@@ -48,6 +48,7 @@ __all__ = [
     "VECTOR_PREFIX",
     "VectorStorage",
     "decode_id",
+    "escape_segment",
     "index_key_rendered",
     "index_key",
     "index_prefix",
@@ -77,7 +78,7 @@ _NAMESPACES = (
 )
 
 
-def _escape(segment: bytes) -> bytes:
+def escape_segment(segment: bytes) -> bytes:
     """Escape ``\\`` then ``:`` so a segment can never forge a separator."""
     return segment.replace(_ESCAPE, _ESCAPE + _ESCAPE).replace(
         _SEPARATOR, _ESCAPE + _SEPARATOR
@@ -135,11 +136,11 @@ def prefix_upper_bound(prefix: bytes) -> bytes | None:
 
 
 def vector_key(vector_id: VectorId) -> bytes:
-    return VECTOR_PREFIX + _escape(vector_id.encode("utf-8"))
+    return VECTOR_PREFIX + escape_segment(vector_id.encode("utf-8"))
 
 
 def payload_key(vector_id: VectorId) -> bytes:
-    return PAYLOAD_PREFIX + _escape(vector_id.encode("utf-8"))
+    return PAYLOAD_PREFIX + escape_segment(vector_id.encode("utf-8"))
 
 
 def index_key(field: str, value: Any, vector_id: VectorId) -> bytes:
@@ -168,9 +169,9 @@ def index_key_rendered(field: str, rendered: str, vector_id: VectorId) -> bytes:
     """
     return INDEX_PREFIX + _SEPARATOR.join(
         (
-            _escape(field.encode("utf-8")),
-            _escape(rendered.encode("utf-8")),
-            _escape(vector_id.encode("utf-8")),
+            escape_segment(field.encode("utf-8")),
+            escape_segment(rendered.encode("utf-8")),
+            escape_segment(vector_id.encode("utf-8")),
         )
     )
 
@@ -182,10 +183,10 @@ def index_prefix(field: str, value: Any | None = None) -> bytes:
         field: Payload attribute name.
         value: When given, narrow the prefix to one indexed value.
     """
-    head = INDEX_PREFIX + _escape(field.encode("utf-8")) + _SEPARATOR
+    head = INDEX_PREFIX + escape_segment(field.encode("utf-8")) + _SEPARATOR
     if value is None:
         return head
-    return head + _escape(render_value(value)) + _SEPARATOR
+    return head + escape_segment(render_value(value)) + _SEPARATOR
 
 
 def render_value(value: Any) -> bytes:
