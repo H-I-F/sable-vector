@@ -32,7 +32,7 @@ ledger cannot drift ahead of the repository it describes.
 - [x] PR 02: float32 连续二进制零拷贝编解码 / Zero-copy float32 codec
 - [x] PR 03: sable 物理命名空间适配器 / Physical namespace adapter over sable
 - [x] PR 04: WAL 级多键原子 Upsert / WAL-level atomic multi-key upsert
-- [ ] PR 05: NumPy 矩阵化 Flat 爆搜 / Matrix-vectorised Flat brute force
+- [x] PR 05: NumPy 矩阵化 Flat 爆搜 / Matrix-vectorised Flat brute force
 - [ ] PR 06: 标量倒排前缀索引 / Scalar inverted prefix index
 - [ ] PR 07: 前置过滤执行器 / Pre-filtering executor
 - [ ] PR 08: 后置过滤执行器 / Post-filtering executor

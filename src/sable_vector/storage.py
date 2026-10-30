@@ -47,6 +47,7 @@ __all__ = [
     "POSTING_PREFIX",
     "VECTOR_PREFIX",
     "VectorStorage",
+    "decode_id",
     "index_key",
     "index_prefix",
     "payload_key",
@@ -278,7 +279,7 @@ class VectorStorage:
 
     def iter_vector_ids(self) -> Iterator[VectorId]:
         for raw_id, _ in self.scan_namespace(VECTOR_PREFIX):
-            yield _unescape_id(raw_id)
+            yield decode_id(raw_id)
 
     # -- payloads ----------------------------------------------------------
 
@@ -296,7 +297,7 @@ class VectorStorage:
 
     def iter_payloads(self) -> Iterator[tuple[VectorId, dict[str, Any]]]:
         for raw_id, blob in self.scan_namespace(PAYLOAD_PREFIX):
-            yield _unescape_id(raw_id), decode_payload(blob)
+            yield decode_id(raw_id), decode_payload(blob)
 
     # -- scalar inverted index ---------------------------------------------
 
@@ -314,7 +315,7 @@ class VectorStorage:
     def scan_index(self, field: str, value: Any) -> Iterator[VectorId]:
         """Every id whose ``field`` is indexed with ``value``."""
         for raw_id, _ in self.scan_namespace(index_prefix(field, value)):
-            yield _unescape_id(raw_id)
+            yield decode_id(raw_id)
 
     def scan_index_field(self, field: str) -> Iterator[tuple[str, VectorId]]:
         """Every ``(value, id)`` pair indexed under ``field``, in value order.
@@ -328,18 +329,25 @@ class VectorStorage:
             yield segments[1].decode("utf-8"), segments[2].decode("utf-8")
 
 
-def _unescape_id(raw_id: str) -> VectorId:
-    """Undo :func:`_escape` for a single id segment."""
-    if "\\" not in raw_id:
-        return raw_id
+def decode_id(segment: str) -> VectorId:
+    """Undo :func:`_escape` for a single id segment.
+
+    Args:
+        segment: A key segment as it appears on the wire, still escaped.
+
+    Returns:
+        The original id.
+    """
+    if "\\" not in segment:
+        return segment
     out: list[str] = []
     index = 0
-    while index < len(raw_id):
-        if raw_id[index] == "\\" and index + 1 < len(raw_id):
-            out.append(raw_id[index + 1])
+    while index < len(segment):
+        if segment[index] == "\\" and index + 1 < len(segment):
+            out.append(segment[index + 1])
             index += 2
         else:
-            out.append(raw_id[index])
+            out.append(segment[index])
             index += 1
     return "".join(out)
 
