@@ -33,7 +33,7 @@ from collections.abc import Iterator, Mapping
 from pathlib import Path
 from typing import Any
 
-from sable.engine import Engine
+from sable.engine import Engine, Snapshot
 from sable.types import EngineOptions, EngineStats, WriteOptions
 
 from sable_vector.codec import decode_payload, encode_payload
@@ -277,6 +277,23 @@ class VectorStorage:
         yield from self._engine.scan(
             start=prefix, end=prefix_upper_bound(prefix), limit=limit
         )
+
+    def snapshot(self) -> Snapshot:
+        """Cut a frozen view of the tree that outlives the writes that follow it.
+
+        The view is frozen by pinning, not by copying, so a read holds no engine
+        lock and a compaction can run to completion underneath it. That is what
+        makes the concurrency contract of this engine a property rather than a
+        hope: a writer stages a record's derived keys and then commits its
+        payload, and a reader without a snapshot can walk straight into the gap
+        between the two. A reader *with* one cannot, because the gap is not
+        visible at any single sequence number.
+
+        The view is a resource: use it as a context manager or release it
+        explicitly. Never releasing one defers file reclamation, which leaks
+        space rather than correctness.
+        """
+        return self._engine.snapshot()
 
     def scan_namespace(
         self, prefix: bytes, *, limit: int | None = None

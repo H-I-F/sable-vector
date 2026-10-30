@@ -39,6 +39,7 @@ import numpy as np
 import pytest
 
 from sable_vector.codec import encode_vector
+from sable_vector.engine import VectorEngine
 from sable_vector.index.ivf_storage import IVF_META_KEY, IvfIndex, posting_prefix
 from sable_vector.recovery import (
     DEFAULT_REBUILD_RATIO,
@@ -54,7 +55,6 @@ from sable_vector.storage import (
     VECTOR_PREFIX,
     VectorStorage,
 )
-from sable_vector.engine import VectorEngine
 from sable_vector.types import DistanceMetric, VectorId, VectorRecord
 
 DIM = 12

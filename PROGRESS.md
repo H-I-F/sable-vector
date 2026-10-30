@@ -39,7 +39,7 @@ ledger cannot drift ahead of the repository it describes.
 - [x] PR 09: IVF 质心聚类状态机 / IVF centroid clustering state machine
 - [x] PR 10: 倒排桶落盘与分区修剪 / Disk-backed posting lists with partition pruning
 - [x] PR 11: 崩溃恢复与索引重建 / Crash recovery and index rebuild
-- [ ] PR 12: 无锁快照并发读 / Lock-free snapshot concurrent reads
+- [x] PR 12: 无锁快照并发读 / Lock-free snapshot concurrent reads
 - [ ] PR 13: VectorStore 协议适配器 / VectorStore protocol adapter
 - [ ] PR 14: SIGKILL 混沌故障注入 / SIGKILL chaos injection
 - [ ] PR 15: 容器化与双语架构 README / Container image and bilingual README
