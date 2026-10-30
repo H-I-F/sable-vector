@@ -1,0 +1,19 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local database directories produced by examples, benchmarks and chaos tests
+data/
+*.sst
+wal-*.log
+MANIFEST-*
+CURRENT
