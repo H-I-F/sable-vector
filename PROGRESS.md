@@ -35,7 +35,7 @@ ledger cannot drift ahead of the repository it describes.
 - [x] PR 05: NumPy 矩阵化 Flat 爆搜 / Matrix-vectorised Flat brute force
 - [x] PR 06: 标量倒排前缀索引 / Scalar inverted prefix index
 - [x] PR 07: 前置过滤执行器 / Pre-filtering executor
-- [ ] PR 08: 后置过滤执行器 / Post-filtering executor
+- [x] PR 08: 后置过滤执行器 / Post-filtering executor
 - [ ] PR 09: IVF 质心聚类状态机 / IVF centroid clustering state machine
 - [ ] PR 10: 倒排桶落盘与分区修剪 / Disk-backed posting lists with partition pruning
 - [ ] PR 11: 崩溃恢复与索引重建 / Crash recovery and index rebuild
