@@ -99,12 +99,17 @@ class IndexHealth:
 
     @property
     def healthy(self) -> bool:
-        return (
-            self.trained
-            and not self.malformed
-            and self.metadata is not None
-            and self.drift == 0
-        )
+        """Whether the index agrees with the corpus and nothing is damaged.
+
+        An empty corpus is healthy when it has *no* index: there is nothing to
+        cluster, so a partition map would be debris rather than structure. A
+        non-empty one is healthy only when it has one that matches.
+        """
+        if self.malformed or self.drift:
+            return False
+        if self.vectors == 0:
+            return not self.trained
+        return self.trained and self.metadata is not None
 
     def needs_retrain(self, rebuild_ratio: float = DEFAULT_REBUILD_RATIO) -> bool:
         """Whether the drift is big enough to recompute rather than splice."""
