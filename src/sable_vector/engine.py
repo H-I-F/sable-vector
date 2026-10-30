@@ -47,12 +47,8 @@ from sable.types import EngineOptions
 
 from sable_vector.codec import encode_vector
 from sable_vector.distance import as_query
-from sable_vector.storage import (
-    META_PREFIX,
-    PAYLOAD_PREFIX,
-    VECTOR_PREFIX,
-    VectorStorage,
-)
+from sable_vector.index.scalar import ScalarIndex
+from sable_vector.storage import META_PREFIX, VectorStorage
 from sable_vector.types import DistanceMetric, VectorId, VectorRecord
 
 __all__ = ["RepairReport", "VectorEngine"]
@@ -109,6 +105,7 @@ class VectorEngine:
         self._storage = storage
         self._metric = metric
         self._indexed_fields = tuple(indexed_fields)
+        self._scalar = ScalarIndex(storage, self._indexed_fields)
         self._dim = self._restore_dim() if dim is None else dim
 
     @classmethod
@@ -158,6 +155,11 @@ class VectorEngine:
     @property
     def indexed_fields(self) -> tuple[str, ...]:
         return self._indexed_fields
+
+    @property
+    def scalar(self) -> ScalarIndex:
+        """The inverted index over :attr:`indexed_fields`."""
+        return self._scalar
 
     @property
     def stats(self) -> Any:
@@ -251,25 +253,15 @@ class VectorEngine:
             self._storage.delete_payload(orphan)
             report = _bump(report, stale_index_keys=self._drop_unknown_index_keys(orphan))
 
-        live = sorted(vector_ids & payload_ids)
-        known: set[tuple[str, Any, VectorId]] = set()
-        for field in self._indexed_fields:
-            for value, indexed_id in self._storage.scan_index_field(field):
-                known.add((field, value, indexed_id))
-                if indexed_id not in payload_ids:
-                    self._storage.delete_index_key(field, value, indexed_id)
-                    report = _bump(report, stale_index_keys=1)
-
-        for vector_id in live:
-            payload = payloads[vector_id]
-            for field in self._indexed_fields:
-                value = payload.get(field)
-                if value is None:
-                    continue
-                if (field, value, vector_id) not in known:
-                    self._storage.put_index_key(field, value, vector_id)
-                    report = _bump(report, rebuilt_index_keys=1)
-        return report
+        # The inverted entries are a pure function of the committed payloads, so
+        # once the torn records are gone the index can be diffed against them in
+        # both directions and made to agree.
+        audit = self._scalar.repair()
+        return _bump(
+            report,
+            stale_index_keys=len(audit.orphaned),
+            rebuilt_index_keys=len(audit.missing),
+        )
 
     # -- internals ---------------------------------------------------------
 
@@ -331,48 +323,22 @@ class VectorEngine:
         *,
         sync: bool,
     ) -> None:
-        """Replace only the inverted entries whose value actually changed.
-
-        Rewriting every entry would delete and re-add the same key for unchanged
-        fields; the delete is ordered before the add, so that would erase them.
-        """
-        for field in self._indexed_fields:
-            old = previous.get(field)
-            new = payload.get(field)
-            if old == new:
-                continue
-            if old is not None:
-                self._storage.delete_index_key(field, old, vector_id, sync=sync)
-            if new is not None:
-                self._storage.put_index_key(field, new, vector_id, sync=sync)
+        """Move the inverted entries from one payload to the next."""
+        self._scalar.reindex(vector_id, previous, payload, sync=sync)
 
     def _drop_index_keys(
         self, vector_id: VectorId, payload: Mapping[str, Any], *, sync: bool
     ) -> int:
         """Drop every inverted entry a payload owns. Returns how many."""
-        removed = 0
-        for field in self._indexed_fields:
-            value = payload.get(field)
-            if value is None:
-                continue
-            self._storage.delete_index_key(field, value, vector_id, sync=sync)
-            removed += 1
-        return removed
+        return self._scalar.deindex(vector_id, payload, sync=sync)
 
     def _drop_unknown_index_keys(self, vector_id: VectorId, *, sync: bool = True) -> int:
-        """Drop inverted entries for an id whose payload is already gone.
+        """Drop the entries of a record whose payload is already gone.
 
-        Used when a record is deleted or reclaimed without its payload being
-        available, which is precisely the torn-write case: the value segment of
-        the key cannot be derived, so the field is scanned instead.
+        The value segment cannot be derived without the payload, which is exactly
+        the torn-write case, so the field is walked instead.
         """
-        removed = 0
-        for field in self._indexed_fields:
-            for value, indexed_id in list(self._storage.scan_index_field(field)):
-                if indexed_id == vector_id:
-                    self._storage.delete_index_key(field, value, indexed_id, sync=sync)
-                    removed += 1
-        return removed
+        return self._scalar.deindex(vector_id, sync=sync)
 
     def _restore_dim(self) -> int | None:
         stored = self._storage.get_raw(_DIM_KEY)
@@ -387,8 +353,3 @@ def _bump(report: RepairReport, **delta: int) -> RepairReport:
         stale_index_keys=report.stale_index_keys + delta.get("stale_index_keys", 0),
         rebuilt_index_keys=report.rebuilt_index_keys + delta.get("rebuilt_index_keys", 0),
     )
-
-
-def namespace_of(prefix: bytes) -> str:
-    """Human-readable namespace name, for diagnostics and tooling."""
-    return {VECTOR_PREFIX: "vector", PAYLOAD_PREFIX: "payload"}.get(prefix, "other")

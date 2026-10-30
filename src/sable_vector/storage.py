@@ -48,10 +48,12 @@ __all__ = [
     "VECTOR_PREFIX",
     "VectorStorage",
     "decode_id",
+    "index_key_rendered",
     "index_key",
     "index_prefix",
     "payload_key",
     "prefix_upper_bound",
+    "render_value",
     "vector_key",
 ]
 
@@ -148,10 +150,26 @@ def index_key(field: str, value: Any, vector_id: VectorId) -> bytes:
         value: Attribute value; rendered as text so the index stays sortable.
         vector_id: Referenced record.
     """
+    return index_key_rendered(field, render_value(value).decode("utf-8"), vector_id)
+
+
+def index_key_rendered(field: str, rendered: str, vector_id: VectorId) -> bytes:
+    """Build ``idx:<field>:<value>:<id>`` from an already-rendered value.
+
+    An entry read back out of the key space carries its value in rendered form.
+    Handing that text back to :func:`index_key` would render it a second time
+    and miss the entry it came from; this is the builder for that direction,
+    which is what lets an audit delete exactly the key it just read.
+
+    Args:
+        field: Payload attribute name.
+        rendered: Value exactly as it is stored.
+        vector_id: Referenced record.
+    """
     return INDEX_PREFIX + _SEPARATOR.join(
         (
             _escape(field.encode("utf-8")),
-            _escape(_render_value(value)),
+            _escape(rendered.encode("utf-8")),
             _escape(vector_id.encode("utf-8")),
         )
     )
@@ -167,10 +185,10 @@ def index_prefix(field: str, value: Any | None = None) -> bytes:
     head = INDEX_PREFIX + _escape(field.encode("utf-8")) + _SEPARATOR
     if value is None:
         return head
-    return head + _escape(_render_value(value)) + _SEPARATOR
+    return head + _escape(render_value(value)) + _SEPARATOR
 
 
-def _render_value(value: Any) -> bytes:
+def render_value(value: Any) -> bytes:
     """Render an indexable value as sortable text.
 
     Booleans render as ``true``/``false`` and numbers as fixed-width text so
@@ -311,6 +329,12 @@ class VectorStorage:
         self, field: str, value: Any, vector_id: VectorId, *, sync: bool = True
     ) -> None:
         self.delete_raw(index_key(field, value, vector_id), sync=sync)
+
+    def delete_index_entry(
+        self, field: str, rendered: str, vector_id: VectorId, *, sync: bool = True
+    ) -> None:
+        """Remove an entry identified by its rendered value, as stored."""
+        self.delete_raw(index_key_rendered(field, rendered, vector_id), sync=sync)
 
     def scan_index(self, field: str, value: Any) -> Iterator[VectorId]:
         """Every id whose ``field`` is indexed with ``value``."""
