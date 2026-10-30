@@ -202,11 +202,18 @@ class FlatIndex:
             grid = self._matrix
             labels = self._ids
         else:
-            rows = [
+            # Sorted, not set-ordered. A candidate set iterates in Python's
+            # string-hash order, which is randomised per process, so gathering in
+            # that order would make the gathered block — and therefore the
+            # gemv's own rounding — differ between runs. Two candidates with
+            # exactly equal scores would then swap places depending on the hash
+            # seed, which is a ranking that cannot be reproduced from a bug
+            # report. Sorting by row restores matrix order and pins the result.
+            rows = sorted(
                 self._positions[label]
                 for label in candidate_ids
                 if label in self._positions
-            ]
+            )
             if not rows:
                 return []
             # A gather, not a mask: the candidate block is built once and then
