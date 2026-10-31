@@ -23,6 +23,14 @@ updates:
     groups:
       python-dev-toolchain:
         dependency-type: "development"
+    ignore:
+      # adapter/mcp_server.py uses @server.list_tools / @server.call_tool, which
+      # mcp 2.x replaced with constructor callbacks. Widening to >=2 breaks test
+      # collection outright (verified: all three CI jobs failed with
+      # AttributeError: 'Server' object has no attribute 'list_tools').
+      # Revisit only together with a deliberate port to the 2.x low-level API.
+      - dependency-name: "mcp"
+        versions: [">=2"]
 
   # Only actions/checkout and actions/setup-python are pinned by tag today.
   # Note: these floating tags must be replaced with full commit SHAs before the
