@@ -35,3 +35,15 @@ jobs:
 
       - name: Pytest
         run: pytest -q
+
+  docker:
+    name: docker build & self-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t sable-vector .
+
+      - name: Self-validate inside the image
+        run: docker run --rm sable-vector pytest -q
