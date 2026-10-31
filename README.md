@@ -83,10 +83,10 @@ flowchart TB
 ```mermaid
 flowchart TB
     subgraph write["Write path (VectorEngine)"]
-        U[upsert / delete] --> A[stage vector v:&lt;id&gt; · sync=False]
-        A --> B[stage index idx:&lt;field&gt;:&lt;val&gt;:&lt;id&gt; · sync=False]
-        B --> C[commit payload p:&lt;id&gt; · sync=True]
-        C --> WAL[(sable WAL + memtable)]
+        U["upsert / delete"] --> A["stage vector v:<id> · sync=False"]
+        A --> B["stage index idx:<field>:<val>:<id> · sync=False"]
+        B --> C["commit payload p:<id> · sync=True"]
+        C --> WAL[("sable WAL + memtable")]
     end
     WAL --> SST[(SSTables)]
     WAL --> IDX[(VectorStorage namespace adapter)]
