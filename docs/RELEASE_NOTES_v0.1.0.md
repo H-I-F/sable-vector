@@ -81,7 +81,7 @@ engine.upsert("doc-1", np.random.randn(1536).astype("float32"),
 
 executor = PrefilterExecutor(
     engine.storage,
-    FlatIndex.materialise(engine, metric="cosine"),
+    FlatIndex.materialise(engine.storage, metric="cosine", dim=engine.dim),
     ScalarIndex(engine.storage, ("tenant",)),
 )
 outcome = executor.search(np.random.randn(1536).astype("float32"), k=5,

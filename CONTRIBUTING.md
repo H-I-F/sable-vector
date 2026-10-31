@@ -15,7 +15,7 @@ git clone https://github.com/MKA930/sable-vector.git
 cd sable-vector
 python -m venv .venv && source .venv/bin/activate
 pip install --upgrade pip
-pip install -e ".[sable,test,lint]"
+pip install -e ".[sable,mcp,test,lint]"
 ```
 
 The `[sable]` extra pulls the storage engine from its released git tag, `[test]`

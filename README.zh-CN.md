@@ -143,7 +143,7 @@ engine.upsert("doc-1", np.random.randn(1536).astype("float32"),
 engine.upsert("doc-2", np.random.randn(1536).astype("float32"),
               payload={"tenant": "acme", "lang": "zh"})
 
-flat = FlatIndex.materialise(engine, metric="cosine")
+flat = FlatIndex.materialise(engine.storage, metric="cosine", dim=engine.dim)
 scalar = ScalarIndex(engine.storage, ("tenant", "lang"))
 executor = PrefilterExecutor(engine.storage, flat, scalar)
 
@@ -244,6 +244,29 @@ pytest -q
 docker build -t sable-vector .
 docker run --rm sable-vector pytest -q          # 校验镜像构建
 ```
+
+## Model Context Protocol（MCP）
+
+通过 stdio 把集合暴露给任何支持 MCP 的 Agent 宿主。
+
+```bash
+pip install "sable-vector[mcp]"
+sable-vector serve-mcp
+```
+
+服务端发布三个工具：
+
+| 工具 | 用途 |
+| --- | --- |
+| `sable_vector_search` | 按 embedding 检索，可选地用 payload 相等条件收窄（混合检索） |
+| `sable_vector_upsert` | 把一条记录（embedding + JSON 属性）作为一个持久单元写入 |
+| `sable_vector_describe` | 报告记录数、向量维度与距离度量 |
+
+**embedding 由调用方提供**，本服务从不自行计算。`sable-vector serve-mcp` 会在 transport 打开期间一直阻塞，客户端断开时才返回。
+
+> `mcp` 被固定在 `<2`。本服务基于底层的 `Server.list_tools` / `Server.call_tool`
+> 装饰器 API 构建，而 mcp 2.x 已用构造函数回调取而代之。迁移是一次有计划的动作，
+> 而不是一次意外。
 
 ## 目录结构
 
