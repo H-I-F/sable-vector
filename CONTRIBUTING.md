@@ -72,7 +72,7 @@ Co-authored-by: Leisurely Winston <winston_cn@yeah.net>
 | Path               | Responsibility                                           |
 |--------------------|----------------------------------------------------------|
 | `src/sable_vector/`| Engine, index (flat / IVF), query, distance, adapter     |
-| `benchmarks/`      | ANN benchmark suite (`python -m benchmarks.bench_vector`)| 
+| `benchmarks/`      | ANN benchmark suite (`python -m benchmarks.bench_vector`) |
 | `examples/`        | Runnable integration demos (e.g. LangChain RAG)          |
 | `tests/`           | pytest suite                                             |
 
