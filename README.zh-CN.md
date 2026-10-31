@@ -62,10 +62,10 @@ flowchart TB
 ```mermaid
 flowchart TB
     subgraph write["写入路径 (VectorEngine)"]
-        U[upsert / delete] --> A[写入向量 v:&lt;id&gt; · sync=False]
-        A --> B[写入索引 idx:&lt;field&gt;:&lt;val&gt;:&lt;id&gt; · sync=False]
-        B --> C[提交 payload p:&lt;id&gt; · sync=True]
-        C --> WAL[(sable WAL + memtable)]
+        U["upsert / delete"] --> A["写入向量 v:<id> · sync=False"]
+        A --> B["写入索引 idx:<field>:<val>:<id> · sync=False"]
+        B --> C["提交 payload p:<id> · sync=True"]
+        C --> WAL[("sable WAL + memtable")]
     end
     WAL --> SST[(SSTables)]
     WAL --> IDX[(VectorStorage 命名空间适配器)]
