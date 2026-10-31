@@ -91,13 +91,13 @@ should use the library API directly rather than going over the protocol.
 
 This release also records the cross-layer bug hunt from v0.1.0's development —
 a concurrency failure that turned out to be a storage-engine defect, fixed
-upstream in [`sable`](https://github.com/MKA930/sable) v0.1.1. The full write-up
+upstream in [`sable`](https://github.com/H-I-F/sable) v0.1.1. The full write-up
 is in [the case study](./case-studies/cross-layer-bugfix.md); both READMEs carry
 *"Built on sable — with critical upstream bugfixes contributed"*.
 
 ## Links
 
-- Repository: <https://github.com/MKA930/sable-vector>
-- Release: <https://github.com/MKA930/sable-vector/releases/tag/v0.1.1>
+- Repository: <https://github.com/H-I-F/sable-vector>
+- Release: <https://github.com/H-I-F/sable-vector/releases/tag/v0.1.1>
 - Full history: [CHANGELOG.md](../CHANGELOG.md)
-- Upstream storage engine: [`sable`](https://github.com/MKA930/sable)
+- Upstream storage engine: [`sable`](https://github.com/H-I-F/sable)

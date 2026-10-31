@@ -251,7 +251,7 @@ def test_a_snapshot_held_across_many_writes_does_not_change(
         "reproducible with the storage engine on its own, so it is not a defect "
         "in this layer. Non-strict because the race is intermittent: with "
         "strict=True a lucky pass would fail the suite. Tracked against "
-        "MKA930/sable; this test is the tripwire."
+        "H-I-F/sable; this test is the tripwire."
     ),
     strict=False,
 )

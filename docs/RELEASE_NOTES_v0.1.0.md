@@ -31,7 +31,7 @@ predicate is. Exposing both, with their trade-offs documented, is the point.
 
 ## What ships in v0.1.0
 
-**Durability.** Built on [`sable`](https://github.com/MKA930/sable), a pure-Python
+**Durability.** Built on [`sable`](https://github.com/H-I-F/sable), a pure-Python
 LSM engine. A vector, its payload and its inverted entries are committed as one
 unit; every mutation reaches a write-ahead log before it becomes visible, so a
 killed process loses unacknowledged writes and never committed data. Reopening a
@@ -63,7 +63,7 @@ records one tick per merged PR.
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -e .
-pip install "sable @ git+https://github.com/MKA930/sable.git@v0.1.1"
+pip install "sable @ git+https://github.com/H-I-F/sable.git@v0.1.1"
 pytest -q
 ```
 
@@ -102,7 +102,7 @@ outcome = executor.search(np.random.randn(1536).astype("float32"), k=5,
 
 v0.1.0 also carries an upstream contribution: investigating a concurrency failure
 during sable-vector's snapshot testing traced back to
-[`sable`](https://github.com/MKA930/sable), whose memtable point lookups could
+[`sable`](https://github.com/H-I-F/sable), whose memtable point lookups could
 disagree with range scans about what a pinned sequence number resolves to. That
 is fixed in `sable` v0.1.1, and this release depends on it.
 

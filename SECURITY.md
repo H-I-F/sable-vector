@@ -17,7 +17,7 @@ Report privately to the maintainer:
 
 - Email: security reports to the project owner via GitHub
   (use the "Report a vulnerability" option on the
-  [Security tab](https://github.com/MKA930/sable-vector/security/advisories/new))
+  [Security tab](https://github.com/H-I-F/sable-vector/security/advisories/new))
 
 Acknowledge receipt is normally within 72 hours. Include a minimal reproduction
 where possible: the affected version, the embedding/scalar configuration, and the
@@ -37,7 +37,7 @@ In scope:
 
 - Correctness and integrity of stored vectors, payloads and scalar metadata.
 - Snapshot isolation and crash/recovery guarantees of persisted data.
-- The storage engine it depends on, [`sable`](https://github.com/MKA930/sable);
+- The storage engine it depends on, [`sable`](https://github.com/H-I-F/sable);
   if a vulnerability is rooted there, it should be reported against `sable` and
   this project will bump the pinned tag once a fix ships.
 

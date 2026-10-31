@@ -31,14 +31,14 @@ sable-vector = "sable_vector.cli:app"
 # decorator API, which mcp 2.x replaced with constructor callbacks. Pinning keeps
 # the documented API; the migration is a separate, deliberate step.
 mcp = ["mcp>=1.9,<2"]
-sable = ["sable @ git+https://github.com/MKA930/sable.git@v0.1.1"]
+sable = ["sable @ git+https://github.com/H-I-F/sable.git@v0.1.1"]
 test = ["pytest>=7.4", "pytest-cov>=4.1"]
 lint = ["ruff>=0.5", "mypy>=1.8"]
 
 [project.urls]
-Homepage = "https://github.com/MKA930/sable-vector"
-Repository = "https://github.com/MKA930/sable-vector"
-"Storage engine" = "https://github.com/MKA930/sable"
+Homepage = "https://github.com/H-I-F/sable-vector"
+Repository = "https://github.com/H-I-F/sable-vector"
+"Storage engine" = "https://github.com/H-I-F/sable"
 
 [tool.setuptools.packages.find]
 where = ["src"]
