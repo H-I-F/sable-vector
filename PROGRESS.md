@@ -26,6 +26,7 @@ ledger cannot drift ahead of the repository it describes.
 | 15 | `docs/portal-readme` | `Dockerfile`, `.dockerignore`, `README.md`, `README.zh-CN.md` | `docker build -t sable-vector . && docker run --rm sable-vector pytest -q` |
 | 16 | `bench/ann-benchmarks` | `benchmarks/bench_vector.py` | `python -m benchmarks.bench_vector` |
 | 17 | `ci(actions)` | `.github/workflows/ci.yml`, ruff + pytest on Py 3.10/3.11 | `ruff check . && pytest -q` |
+| 18 | `build(docker)` | multi-stage `Dockerfile`, `docker` CI job | `docker build -t sable-vector . && docker run --rm sable-vector pytest -q` (cloud) |
 
 ## Checklist
 
@@ -46,3 +47,4 @@ ledger cannot drift ahead of the repository it describes.
 - [x] PR 15: 容器化与双语架构 README / Container image and bilingual README
 - [x] PR 16: 1536 维基准矩阵 / 1536-dimension benchmark matrix
 - [x] PR 17: 自动化 CI 矩阵 / Automated CI matrix (ruff + pytest, Py 3.10/3.11)
+- [x] PR 18: 多阶段 Docker 镜像 / Multi-stage Docker image
