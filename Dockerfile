@@ -1,37 +1,59 @@
-# sable-vector — container image
+# sable-vector — multi-stage container image
 #
-# Single-stage build: the engine and its dependency `sable` are installed from
-# source, so the image carries everything needed to run the test suite and the
-# embedded library. `git` is required because `sable` is fetched from its
-# repository (it is not published to PyPI).
+# Stage 1 (builder) compiles the dependency set and installs the engine into a
+# virtualenv. `sable` is fetched from its repository (it is not published to
+# PyPI), so `git` lives only in this stage.
+#
+# Stage 2 (runtime) copies the populated virtualenv onto a clean slim base, so
+# the shipped image carries no compiler, no git and no build caches. The test
+# runner is part of the image so the build is self-validating: the default
+# command runs the whole suite.
 
-FROM python:3.11-slim
+# --- builder ---------------------------------------------------------------
+FROM python:3.11-slim AS builder
 
-ENV PYTHONUNBUFFERED=1 \
-    PIP_NO_CACHE_DIR=1 \
+ENV PIP_NO_CACHE_DIR=1 \
     PYTHONDONTWRITEBYTECODE=1
 
-# `git` is needed to install the `sable` storage engine from its repository.
 RUN apt-get update \
     && apt-get install -y --no-install-recommends git \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
+# The virtualenv is the only artefact this stage hands to the next one.
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:${PATH}"
 
-# Copy the package metadata and sources first; this layer only re-builds when the
-# project itself changes, not when the dependency set does.
+WORKDIR /build
+
+# Metadata first: this layer only rebuilds when the dependency set changes, not
+# when the source does.
 COPY pyproject.toml ./
+
+# Source next: needed so `pip install .` can build the package.
 COPY src ./src
-COPY tests ./tests
-COPY examples ./examples
 
 RUN pip install --upgrade pip \
     && pip install "sable @ git+https://github.com/MKA930/sable.git@v0.1.1" \
     && pip install numpy pydantic rich typer \
-    && pip install -e .
+    && pip install . \
+    && pip install "pytest>=7.4"
 
-# The test runner is part of the image so the build is self-validating.
-RUN pip install "pytest>=7.4"
+# --- runtime ---------------------------------------------------------------
+FROM python:3.11-slim AS runtime
 
-# The default command validates the image by running the full test suite.
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PATH="/opt/venv/bin:${PATH}"
+
+# Bring across the builder's populated virtualenv verbatim.
+COPY --from=builder /opt/venv /opt/venv
+
+WORKDIR /app
+
+# The test corpus and examples travel with the image so `pytest` has something
+# to run; the engine itself lives in the virtualenv's site-packages.
+COPY tests ./tests
+COPY examples ./examples
+
+# Self-validating entrypoint: the image proves itself by running the suite.
 CMD ["sh", "-c", "pytest -q tests/"]
