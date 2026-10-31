@@ -250,7 +250,7 @@ docker run --rm sable-vector pytest -q          # 校验镜像构建
 通过 stdio 把集合暴露给任何支持 MCP 的 Agent 宿主。
 
 ```bash
-pip install "sable-vector[mcp]"
+pip install "sable-vector[sable,mcp]"
 sable-vector serve-mcp
 ```
 
@@ -288,6 +288,7 @@ sable-vector serve-mcp
 - 安全策略：[SECURITY.md](./SECURITY.md)
 - 发布历史：[CHANGELOG.md](./CHANGELOG.md)
 - 演进台账（每个 PR 一个勾）：[PROGRESS.md](./PROGRESS.md)
+- v0.1.1 发布公告：[docs/RELEASE_NOTES_v0.1.1.md](./docs/RELEASE_NOTES_v0.1.1.md)
 - v0.1.0 发布公告：[docs/RELEASE_NOTES_v0.1.0.md](./docs/RELEASE_NOTES_v0.1.0.md)
 - 案例复盘——跨层 Bug 排查记：[docs/case-studies/cross-layer-bugfix.md](./docs/case-studies/cross-layer-bugfix.md)
 

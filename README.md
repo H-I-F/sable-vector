@@ -295,7 +295,7 @@ docker run --rm sable-vector pytest -q          # validates the build
 Expose a collection to any MCP-capable agent host over stdio.
 
 ```bash
-pip install "sable-vector[mcp]"
+pip install "sable-vector[sable,mcp]"
 sable-vector serve-mcp
 ```
 
@@ -335,6 +335,7 @@ when the client disconnects.
 - Security policy: [SECURITY.md](./SECURITY.md)
 - Release history: [CHANGELOG.md](./CHANGELOG.md)
 - Evolution ledger (one tick per PR): [PROGRESS.md](./PROGRESS.md)
+- v0.1.1 announcement: [docs/RELEASE_NOTES_v0.1.1.md](./docs/RELEASE_NOTES_v0.1.1.md)
 - v0.1.0 announcement: [docs/RELEASE_NOTES_v0.1.0.md](./docs/RELEASE_NOTES_v0.1.0.md)
 - Case study — the cross-layer bug hunt: [docs/case-studies/cross-layer-bugfix.md](./docs/case-studies/cross-layer-bugfix.md)
 
