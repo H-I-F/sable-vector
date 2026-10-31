@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg" alt="Python">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
   <img src="https://img.shields.io/badge/storage-sable%20LSM-blue.svg" alt="Storage">
-  <a href="https://github.com/MKA930/sable"><img src="https://img.shields.io/badge/built%20on-sable-8A2BE2.svg" alt="Built on sable"></a>
+  <a href="https://github.com/MKA930/sable"><img src="https://img.shields.io/badge/built%20on-sable%20%2B%20upstream%20fixes-8A2BE2.svg" alt="Built on sable, with critical upstream bugfixes contributed"></a>
 </p>
 
 ---
@@ -37,6 +37,14 @@ that produced them**. It keeps three concerns strictly separate:
 
 Nothing opens a socket, spawns a thread behind your back, or embeds a model. It
 is a library, not a service.
+
+> **Built on [`sable`](https://github.com/MKA930/sable) — with critical upstream
+> bugfixes contributed.** Concurrency testing in this project surfaced a
+> snapshot-read consistency defect in the storage engine itself: a pinned view
+> could fail to resolve a key whose newest version post-dated the snapshot, even
+> though an older visible version was still present. It was traced, reproduced in
+> pure `sable`, fixed upstream and shipped as `sable` v0.1.1, which this project
+> pins. Full write-up: [cross-layer bug hunt](./docs/case-studies/cross-layer-bugfix.md).
 
 ## Features
 
@@ -294,6 +302,7 @@ docker run --rm sable-vector pytest -q          # validates the build
 - Release history: [CHANGELOG.md](./CHANGELOG.md)
 - Evolution ledger (one tick per PR): [PROGRESS.md](./PROGRESS.md)
 - v0.1.0 announcement: [docs/RELEASE_NOTES_v0.1.0.md](./docs/RELEASE_NOTES_v0.1.0.md)
+- Case study — the cross-layer bug hunt: [docs/case-studies/cross-layer-bugfix.md](./docs/case-studies/cross-layer-bugfix.md)
 
 ## License
 

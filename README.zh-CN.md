@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg" alt="Python">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
   <img src="https://img.shields.io/badge/storage-sable%20LSM-blue.svg" alt="Storage">
-  <a href="https://github.com/MKA930/sable"><img src="https://img.shields.io/badge/built%20on-sable-8A2BE2.svg" alt="Built on sable"></a>
+  <a href="https://github.com/MKA930/sable"><img src="https://img.shields.io/badge/built%20on-sable%20%2B%20upstream%20fixes-8A2BE2.svg" alt="Built on sable, with critical upstream bugfixes contributed"></a>
 </p>
 
 ---
@@ -28,6 +28,8 @@ sable-vector 是一个单进程、轻依赖的向量引擎，面向**已经拥�
 - **过滤**交给标量倒排索引，它被实现成普通的排序键，于是元数据谓词变成一次前缀扫描，而非全表遍历。
 
 它不开 socket、不在你背后起线程、也不内嵌任何模型。它是库，不是服务。
+
+> **基于 [`sable`](https://github.com/MKA930/sable) 构建——并向上游贡献了关键缺陷修复。** 本项目的并发测试暴露出存储引擎自身的快照读一致性缺陷：当某个键的最新版本晚于快照时，被钉住的视图会解析不到该键——即便此时仍存在一个视图有权看到的旧版本。该问题被一路追踪、在纯 `sable` 中复现、在上游修复，并随 `sable` v0.1.1 发布（本项目已钉该版本）。完整复盘：[跨层 Bug 排查记](./docs/case-studies/cross-layer-bugfix.md)。
 
 ## 特性
 
@@ -257,6 +259,7 @@ docker run --rm sable-vector pytest -q          # 校验镜像构建
 - 发布历史：[CHANGELOG.md](./CHANGELOG.md)
 - 演进台账（每个 PR 一个勾）：[PROGRESS.md](./PROGRESS.md)
 - v0.1.0 发布公告：[docs/RELEASE_NOTES_v0.1.0.md](./docs/RELEASE_NOTES_v0.1.0.md)
+- 案例复盘——跨层 Bug 排查记：[docs/case-studies/cross-layer-bugfix.md](./docs/case-studies/cross-layer-bugfix.md)
 
 ## 许可证
 

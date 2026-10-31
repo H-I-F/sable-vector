@@ -30,6 +30,7 @@ ledger cannot drift ahead of the repository it describes.
 | 19 | `docs(governance)` | `CONTRIBUTING.md`, `SECURITY.md`, `CHANGELOG.md` | files present, links wired in README |
 | 20 | `docs(portal)` | README refactor: CI badge, layered diagram, usage guide, doc nav | Markdown syntax + table validation |
 | 21 | `chore(release)` | `docs/RELEASE_NOTES_v0.1.0.md` | `gh release create v0.1.0 --notes-file docs/RELEASE_NOTES_v0.1.0.md` |
+| 22 | `docs(case-study)` | `docs/case-studies/cross-layer-bugfix.md`, README highlight | links to `MKA930/sable`, cross-linked from both repos |
 
 ## Checklist
 
@@ -54,3 +55,4 @@ ledger cannot drift ahead of the repository it describes.
 - [x] PR 19: 治理文档 / Governance docs (CONTRIBUTING / SECURITY / CHANGELOG)
 - [x] PR 20: README 最终重构与徽章 / Final README refactor and badges
 - [x] PR 21: v0.1.0 发版公告与 Release / v0.1.0 announcement and release
+- [x] PR 22: 跨层 Bug 排查案例 / Cross-layer bugfix case study
