@@ -7,16 +7,17 @@
 
 <p align="center">
   <b>Embedded hybrid vector search for local AI agent runtimes.</b><br/>
-  Crash-safe durability from <a href="https://github.com/MKA930/sable">sable</a> LSM · NumPy matrix math for exact recall · scalar pre/post-filtering on an inverted index.
+  Crash-safe durability from <a href="https://github.com/H-I-F/sable">sable</a> LSM · NumPy matrix math for exact recall · scalar pre/post-filtering on an inverted index.
 </p>
 
 <p align="center">
-  <a href="https://github.com/MKA930/sable-vector/releases"><img src="https://img.shields.io/github/v/release/MKA930/sable-vector" alt="Release"></a>
-  <a href="https://github.com/MKA930/sable-vector/actions/workflows/ci.yml"><img src="https://github.com/MKA930/sable-vector/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/H-I-F"><img src="https://img.shields.io/badge/H.I.F-Digital_Commons-black" alt="H.I.F"></a>
+  <a href="https://github.com/H-I-F/sable-vector/releases"><img src="https://img.shields.io/github/v/release/H-I-F/sable-vector" alt="Release"></a>
+  <a href="https://github.com/H-I-F/sable-vector/actions/workflows/ci.yml"><img src="https://github.com/H-I-F/sable-vector/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <img src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg" alt="Python">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
   <img src="https://img.shields.io/badge/storage-sable%20LSM-blue.svg" alt="Storage">
-  <a href="https://github.com/MKA930/sable"><img src="https://img.shields.io/badge/built%20on-sable%20%2B%20upstream%20fixes-8A2BE2.svg" alt="Built on sable, with critical upstream bugfixes contributed"></a>
+  <a href="https://github.com/H-I-F/sable"><img src="https://img.shields.io/badge/built%20on-sable%20%2B%20upstream%20fixes-8A2BE2.svg" alt="Built on sable, with critical upstream bugfixes contributed"></a>
 </p>
 
 ---
@@ -25,7 +26,7 @@ sable-vector is a single-process, dependency-light vector engine for agents that
 already own an embedding model and need their vectors to **survive the process
 that produced them**. It keeps three concerns strictly separate:
 
-- **Durability** belongs to [`sable`](https://github.com/MKA930/sable) — a
+- **Durability** belongs to [`sable`](https://github.com/H-I-F/sable) — a
   pure-Python LSM engine. Every mutation reaches a write-ahead log before it is
   visible, so a killed process loses only unacknowledged writes, never committed
   data.
@@ -38,7 +39,7 @@ that produced them**. It keeps three concerns strictly separate:
 Nothing opens a socket, spawns a thread behind your back, or embeds a model. It
 is a library, not a service.
 
-> **Built on [`sable`](https://github.com/MKA930/sable) — with critical upstream
+> **Built on [`sable`](https://github.com/H-I-F/sable) — with critical upstream
 > bugfixes contributed.** Concurrency testing in this project surfaced a
 > snapshot-read consistency defect in the storage engine itself: a pinned view
 > could fail to resolve a key whose newest version post-dated the snapshot, even
@@ -279,7 +280,7 @@ print(report.orphan_vectors, report.orphan_payloads)
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -e .
-pip install "sable @ git+https://github.com/MKA930/sable.git@v0.1.1"
+pip install "sable @ git+https://github.com/H-I-F/sable.git@v0.1.1"
 pytest -q
 ```
 

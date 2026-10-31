@@ -1,7 +1,7 @@
 # Contributing to sable-vector
 
 sable-vector is an embedded hybrid (dense + scalar-filter) vector engine for
-local AI agent runtimes, built on top of the [`sable`](https://github.com/MKA930/sable)
+local AI agent runtimes, built on top of the [`sable`](https://github.com/H-I-F/sable)
 LSM storage engine. This document describes how to set up a development
 environment and the conventions the project follows so a patch lands cleanly.
 
@@ -11,7 +11,7 @@ The project targets **Python 3.10+**. `sable` is not published to PyPI, so it
 is installed from its repository tag.
 
 ```bash
-git clone https://github.com/MKA930/sable-vector.git
+git clone https://github.com/H-I-F/sable-vector.git
 cd sable-vector
 python -m venv .venv && source .venv/bin/activate
 pip install --upgrade pip

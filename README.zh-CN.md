@@ -7,29 +7,30 @@
 
 <p align="center">
   <b>面向本地 AI Agent 运行时的嵌入式混合检索向量引擎。</b><br/>
-  持久化由 <a href="https://github.com/MKA930/sable">sable</a> LSM 提供崩溃安全 · NumPy 矩阵运算保证精确召回 · 标量倒排索引实现前置/后置过滤。
+  持久化由 <a href="https://github.com/H-I-F/sable">sable</a> LSM 提供崩溃安全 · NumPy 矩阵运算保证精确召回 · 标量倒排索引实现前置/后置过滤。
 </p>
 
 <p align="center">
-  <a href="https://github.com/MKA930/sable-vector/releases"><img src="https://img.shields.io/github/v/release/MKA930/sable-vector" alt="Release"></a>
-  <a href="https://github.com/MKA930/sable-vector/actions/workflows/ci.yml"><img src="https://github.com/MKA930/sable-vector/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/H-I-F"><img src="https://img.shields.io/badge/H.I.F-Digital_Commons-black" alt="H.I.F"></a>
+  <a href="https://github.com/H-I-F/sable-vector/releases"><img src="https://img.shields.io/github/v/release/H-I-F/sable-vector" alt="Release"></a>
+  <a href="https://github.com/H-I-F/sable-vector/actions/workflows/ci.yml"><img src="https://github.com/H-I-F/sable-vector/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <img src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg" alt="Python">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
   <img src="https://img.shields.io/badge/storage-sable%20LSM-blue.svg" alt="Storage">
-  <a href="https://github.com/MKA930/sable"><img src="https://img.shields.io/badge/built%20on-sable%20%2B%20upstream%20fixes-8A2BE2.svg" alt="Built on sable, with critical upstream bugfixes contributed"></a>
+  <a href="https://github.com/H-I-F/sable"><img src="https://img.shields.io/badge/built%20on-sable%20%2B%20upstream%20fixes-8A2BE2.svg" alt="Built on sable, with critical upstream bugfixes contributed"></a>
 </p>
 
 ---
 
 sable-vector 是一个单进程、轻依赖的向量引擎，面向**已经拥有自有 embedding 模型**、并希望向量能**在产出它们的进程崩溃后依然存活**的 Agent。它把三件事严格拆开：
 
-- **持久化**交给 [`sable`](https://github.com/MKA930/sable)——一个纯 Python 的 LSM 引擎。每次写入先落 WAL 再可见，因此被强杀的进程只会丢未确认的写，不会丢已提交的数据。
+- **持久化**交给 [`sable`](https://github.com/H-I-F/sable)——一个纯 Python 的 LSM 引擎。每次写入先落 WAL 再可见，因此被强杀的进程只会丢未确认的写，不会丢已提交的数据。
 - **几何计算**交给 NumPy。相似度就是矩阵–向量乘积，内核从不在 Python 层对向量做循环。
 - **过滤**交给标量倒排索引，它被实现成普通的排序键，于是元数据谓词变成一次前缀扫描，而非全表遍历。
 
 它不开 socket、不在你背后起线程、也不内嵌任何模型。它是库，不是服务。
 
-> **基于 [`sable`](https://github.com/MKA930/sable) 构建——并向上游贡献了关键缺陷修复。** 本项目的并发测试暴露出存储引擎自身的快照读一致性缺陷：当某个键的最新版本晚于快照时，被钉住的视图会解析不到该键——即便此时仍存在一个视图有权看到的旧版本。该问题被一路追踪、在纯 `sable` 中复现、在上游修复，并随 `sable` v0.1.1 发布（本项目已钉该版本）。完整复盘：[跨层 Bug 排查记](./docs/case-studies/cross-layer-bugfix.md)。
+> **基于 [`sable`](https://github.com/H-I-F/sable) 构建——并向上游贡献了关键缺陷修复。** 本项目的并发测试暴露出存储引擎自身的快照读一致性缺陷：当某个键的最新版本晚于快照时，被钉住的视图会解析不到该键——即便此时仍存在一个视图有权看到的旧版本。该问题被一路追踪、在纯 `sable` 中复现、在上游修复，并随 `sable` v0.1.1 发布（本项目已钉该版本）。完整复盘：[跨层 Bug 排查记](./docs/case-studies/cross-layer-bugfix.md)。
 
 ## 特性
 
@@ -234,7 +235,7 @@ print(report.orphan_vectors, report.orphan_payloads)
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -e .
-pip install "sable @ git+https://github.com/MKA930/sable.git@v0.1.1"
+pip install "sable @ git+https://github.com/H-I-F/sable.git@v0.1.1"
 pytest -q
 ```
 

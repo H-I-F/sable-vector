@@ -7,6 +7,25 @@ onward. The 0.1.x line is the initial, pre-stable API surface.
 
 ## [Unreleased]
 
+### Changed
+
+- **Repository ownership moved to the [H.I.F](https://github.com/H-I-F)
+  organization.** The canonical location is now
+  `https://github.com/H-I-F/sable-vector`; the former `MKA930/sable-vector` path
+  keeps resolving because GitHub redirects transferred repositories. Every
+  reference in the documentation, the packaging metadata and the container build
+  was repointed — including the pinned upstream dependency, which now reads
+  `sable @ git+https://github.com/H-I-F/sable.git@v0.1.1`.
+
+  No code, storage layout or version changed, so existing collections open
+  unchanged and nothing needs migrating. Installs that pulled the `sable` extra
+  from the old URL continue to work through the redirect, but their recorded
+  source URL is stale; reinstalling refreshes the metadata:
+
+  ```sh
+  pip install -e ".[sable,mcp]"
+  ```
+
 ## [0.1.1] — 2026-10-31
 
 Follow-up to the first tagged release, adding the Model Context Protocol surface
@@ -103,6 +122,6 @@ First tagged release of the embedded hybrid vector engine.
 - Built on `sable` storage engine, pinned to `v0.1.1` (snapshot-read
   consistency fix that also resolved the concurrent-read regression tests).
 
-[Unreleased]: https://github.com/MKA930/sable-vector/compare/v0.1.1...HEAD
-[0.1.1]: https://github.com/MKA930/sable-vector/releases/tag/v0.1.1
-[0.1.0]: https://github.com/MKA930/sable-vector/releases/tag/v0.1.0
+[Unreleased]: https://github.com/H-I-F/sable-vector/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.1
+[0.1.0]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.0

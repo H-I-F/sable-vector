@@ -1,6 +1,6 @@
 # Cross-layer bug hunt: when a snapshot read silently lost a vector
 
-A debugging story about [`sable`](https://github.com/MKA930/sable), this project's
+A debugging story about [`sable`](https://github.com/H-I-F/sable), this project's
 storage engine, and how two failing tests in `sable-vector` ended up being a
 one-paragraph fix in someone else's memtable.
 
@@ -11,7 +11,7 @@ one-paragraph fix in someone else's memtable.
 | **Symptom** | Two tests in `tests/test_concurrent.py` failed deterministically (100% of runs, not flaky) |
 | **Root cause** | `sable`'s memtable point lookup returned only the *newest* version of a key, so a snapshot-pinned read could not fall back to an older, still-visible version |
 | **Fix** | `MemTable.get_visible()` — walk the version run and stop at the first version at or below the view's sequence, matching what range scans already did |
-| **Shipped as** | [`sable` v0.1.1](https://github.com/MKA930/sable/releases/tag/v0.1.1), pinned from `sable-vector` |
+| **Shipped as** | [`sable` v0.1.1](https://github.com/H-I-F/sable/releases/tag/v0.1.1), pinned from `sable-vector` |
 | **Why it mattered** | It was not a test bug and could not be worked around downstream — a durable engine that sometimes fails to find a committed key is not durable |
 
 ## The symptom
@@ -85,7 +85,7 @@ pinned view would land between them.
 ## The fix
 
 Teach the memtable the same visibility rule the SSTable reader already had. In
-[`sable`](https://github.com/MKA930/sable), `MemTable.get_visible`:
+[`sable`](https://github.com/H-I-F/sable), `MemTable.get_visible`:
 
 ```python
 def get_visible(self, user_key, visible_sequence):
@@ -143,7 +143,7 @@ ship anyway.
 
 This is the part that is easy to get wrong, because the two projects can drift:
 
-1. Land the fix in [`sable`](https://github.com/MKA930/sable) (PR #37), with two
+1. Land the fix in [`sable`](https://github.com/H-I-F/sable) (PR #37), with two
    regression tests written at engine level so they guard the invariant even if
    sable-vector disappears.
 2. Bump `sable` to **v0.1.1** and tag it — behaviour changes need a version, and
@@ -151,7 +151,7 @@ This is the part that is easy to get wrong, because the two projects can drift:
 3. In `sable-vector`, move the dependency pin from `@main` to the released tag:
 
    ```toml
-   sable = ["sable @ git+https://github.com/MKA930/sable.git@v0.1.1"]
+   sable = ["sable @ git+https://github.com/H-I-F/sable.git@v0.1.1"]
    ```
 
    Building against `@main` would have meant "whichever commit happened to exist",
@@ -182,7 +182,7 @@ The full write-up of the moment is also linked from the v0.1.0 announcement in
 
 ## Links
 
-- [`sable`](https://github.com/MKA930/sable) — the storage engine this project is
+- [`sable`](https://github.com/H-I-F/sable) — the storage engine this project is
   built on
-- [`sable` v0.1.1 release](https://github.com/MKA930/sable/releases/tag/v0.1.1)
-- [`sable-vector`](https://github.com/MKA930/sable-vector) — this project
+- [`sable` v0.1.1 release](https://github.com/H-I-F/sable/releases/tag/v0.1.1)
+- [`sable-vector`](https://github.com/H-I-F/sable-vector) — this project
