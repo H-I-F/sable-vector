@@ -42,7 +42,6 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
-
 from sable.types import EngineOptions
 
 from sable_vector.codec import encode_vector

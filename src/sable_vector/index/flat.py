@@ -225,7 +225,7 @@ class FlatIndex:
         order, values = top_k(scores, min(k, scores.size))
         return [
             Match(labels[int(index)], float(value), -float(value), {})
-            for index, value in zip(order, values)
+            for index, value in zip(order, values, strict=False)
         ]
 
     def search_streaming(
@@ -290,7 +290,7 @@ class FlatIndex:
         order, values = top_k(scores, min(k, scores.size))
         return [
             Match(labels[int(index)], float(value), -float(value), {})
-            for index, value in zip(order, values)
+            for index, value in zip(order, values, strict=False)
         ]
 
     def iter_rows(self) -> Iterator[tuple[VectorId, np.ndarray]]:

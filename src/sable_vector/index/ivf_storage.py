@@ -82,12 +82,12 @@ def centroid_key(cluster: int) -> bytes:
     order matches numeric cluster order, which is what lets a range read over
     ``c:`` come back in cluster order without a sort.
     """
-    return CENTROID_PREFIX + f"{cluster:0{_CLUSTER_WIDTH}d}".encode("utf-8")
+    return CENTROID_PREFIX + f"{cluster:0{_CLUSTER_WIDTH}d}".encode()
 
 
 def posting_prefix(cluster: int) -> bytes:
     """``b:`` prefix covering every member of one partition."""
-    return POSTING_PREFIX + f"{cluster:0{_CLUSTER_WIDTH}d}:".encode("utf-8")
+    return POSTING_PREFIX + f"{cluster:0{_CLUSTER_WIDTH}d}:".encode()
 
 
 class IvfIndex:
@@ -325,7 +325,7 @@ class IvfIndex:
         return IvfOutcome(
             matches=tuple(
                 Match(labels[int(index)], float(value), -float(value), {})
-                for index, value in zip(ranking, values)
+                for index, value in zip(ranking, values, strict=False)
             ),
             buckets_scanned=len(order),
             postings_read=postings,

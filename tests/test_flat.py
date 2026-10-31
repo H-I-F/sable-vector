@@ -39,7 +39,7 @@ def ids(rows: int = ROWS) -> list[VectorId]:
 @pytest.fixture()
 def storage(tmp_path: Path) -> VectorStorage:
     handle = VectorStorage.open(tmp_path / "db")
-    for label, row in zip(ids(), vectors()):
+    for label, row in zip(ids(), vectors(), strict=False):
         handle.put_vector(label, encode_vector(row))
     yield handle
     handle.close()
