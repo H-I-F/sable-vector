@@ -43,4 +43,4 @@ ledger cannot drift ahead of the repository it describes.
 - [x] PR 13: VectorStore 协议适配器 / VectorStore protocol adapter
 - [x] PR 14: SIGKILL 混沌故障注入 / SIGKILL chaos injection
 - [x] PR 15: 容器化与双语架构 README / Container image and bilingual README
-- [ ] PR 16: 1536 维基准矩阵 / 1536-dimension benchmark matrix
+- [x] PR 16: 1536 维基准矩阵 / 1536-dimension benchmark matrix
