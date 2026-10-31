@@ -69,7 +69,7 @@ def labels(count: int = ROWS) -> list[VectorId]:
 @pytest.fixture()
 def store(tmp_path: Path) -> Iterator[VectorStorage]:
     handle = VectorStorage.open(tmp_path / "db")
-    for name, row in zip(labels(), corpus()):
+    for name, row in zip(labels(), corpus(), strict=False):
         handle.put_vector(name, encode_vector(row))
     yield handle
     handle.close()
@@ -182,7 +182,7 @@ def test_train_rejects_a_corpus_smaller_than_the_partition_count(
 ) -> None:
     handle = VectorStorage.open(tmp_path / "db")
     try:
-        for name, row in zip(labels(3), corpus(1)[:3]):
+        for name, row in zip(labels(3), corpus(1)[:3], strict=False):
             handle.put_vector(name, encode_vector(row))
         with pytest.raises(ValueError, match="cannot fill"):
             IvfIndex.train(handle, metric=DistanceMetric.L2, dim=DIM, partitions=8)
@@ -260,7 +260,7 @@ def test_postings_in_returns_key_order(index: IvfIndex) -> None:
 def test_cluster_of_matches_a_brute_force_assignment(index: IvfIndex) -> None:
     grid = corpus()
     expected = kmeans(grid, PARTITIONS, seed=11).assignments
-    for row, name in enumerate(labels()):
+    for row, _name in enumerate(labels()):
         assert index.cluster_of(grid[row]) == int(expected[row])
 
 
@@ -469,7 +469,7 @@ def test_an_awkward_id_is_never_mistaken_for_another_partition(index: IvfIndex) 
 def test_trained_postings_survive_flush_reopen_and_compaction(tmp_path: Path) -> None:
     home = tmp_path / "db"
     handle = VectorStorage.open(home)
-    for name, row in zip(labels(), corpus()):
+    for name, row in zip(labels(), corpus(), strict=False):
         handle.put_vector(name, encode_vector(row))
     IvfIndex.train(handle, metric=DistanceMetric.L2, dim=DIM, partitions=PARTITIONS, seed=11)
     handle.flush()

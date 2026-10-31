@@ -52,7 +52,7 @@ def engine(tmp_path: Path) -> VectorEngine:
     handle = VectorEngine.open(
         tmp_path / "db", metric=DistanceMetric.COSINE, indexed_fields=FIELDS
     )
-    for label, row, payload in zip(labels, matrix, payloads):
+    for label, row, payload in zip(labels, matrix, payloads, strict=False):
         handle.upsert(label, row, payload)
     return handle
 

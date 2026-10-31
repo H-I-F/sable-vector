@@ -201,7 +201,7 @@ def kmeans(
     labels = np.zeros(grid.shape[0], dtype=np.int64)
     converged = False
 
-    for iteration in range(1, max_iterations + 1):
+    for _iteration in range(1, max_iterations + 1):
         labels, distances = assign(centroids, grid)
         history.append(float(distances.sum()))
 
@@ -288,6 +288,6 @@ def _recompute_centroids(
     # inertia most on the following step.
     available = np.flatnonzero(~occupied)
     worst_served = np.argsort(-distances, kind="stable")[: available.size]
-    for slot, row in zip(available, worst_served):
+    for slot, row in zip(available, worst_served, strict=False):
         updated[slot] = grid[int(row)]
     return updated

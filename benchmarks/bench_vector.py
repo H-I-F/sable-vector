@@ -131,7 +131,7 @@ def _recall_at_k(ground: list[list[str]], found: list[list[str]], k: int) -> flo
     if not ground:
         return 1.0
     total = 0.0
-    for truth, guess in zip(ground, found):
+    for truth, guess in zip(ground, found, strict=False):
         truth_set = set(truth[:k])
         if not truth_set:
             continue

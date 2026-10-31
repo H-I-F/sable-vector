@@ -200,7 +200,7 @@ def render_value(value: Any) -> bytes:
     if value is False:
         return b"false"
     if isinstance(value, (int, float)):
-        return f"{value:020.6f}".encode("utf-8")
+        return f"{value:020.6f}".encode()
     return str(value).encode("utf-8")
 
 
