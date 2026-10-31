@@ -30,6 +30,11 @@ sable-vector = "sable_vector.cli:app"
 # The server is built on the low-level `Server.list_tools` / `Server.call_tool`
 # decorator API, which mcp 2.x replaced with constructor callbacks. Pinning keeps
 # the documented API; the migration is a separate, deliberate step.
+#
+# Observed, not assumed: letting Dependabot widen this to `<3` makes every CI job
+# fail at collection with
+#     AttributeError: 'Server' object has no attribute 'list_tools'
+# mcp >= 2 is therefore permanently ignored in .github/dependabot.yml.
 mcp = ["mcp>=1.9,<2"]
 sable = ["sable @ git+https://github.com/H-I-F/sable.git@v0.1.1"]
 test = ["pytest>=7.4", "pytest-cov>=4.1"]
