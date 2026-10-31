@@ -173,7 +173,7 @@ engine.upsert("doc-1", np.random.randn(1536).astype("float32"),
 engine.upsert("doc-2", np.random.randn(1536).astype("float32"),
               payload={"tenant": "acme", "lang": "zh"})
 
-flat = FlatIndex.materialise(engine, metric="cosine")
+flat = FlatIndex.materialise(engine.storage, metric="cosine", dim=engine.dim)
 scalar = ScalarIndex(engine.storage, ("tenant", "lang"))
 executor = PrefilterExecutor(engine.storage, flat, scalar)
 
@@ -289,6 +289,31 @@ pytest -q
 docker build -t sable-vector .
 docker run --rm sable-vector pytest -q          # validates the build
 ```
+
+## Model Context Protocol
+
+Expose a collection to any MCP-capable agent host over stdio.
+
+```bash
+pip install "sable-vector[mcp]"
+sable-vector serve-mcp
+```
+
+The server advertises three tools:
+
+| Tool | Purpose |
+| --- | --- |
+| `sable_vector_search` | Search by embedding, optionally narrowed by payload equality filters (hybrid retrieval) |
+| `sable_vector_upsert` | Write one record — embedding plus JSON attributes — as one durable unit |
+| `sable_vector_describe` | Report record count, vector width and distance metric |
+
+The **caller supplies its own embeddings**; this server never computes them.
+`sable-vector serve-mcp` blocks for as long as the transport is open and returns
+when the client disconnects.
+
+> `mcp` is pinned to `<2`. The server is built on the low-level
+> `Server.list_tools` / `Server.call_tool` decorator API, which mcp 2.x replaced
+> with constructor callbacks. Migrating is a deliberate step, not a surprise.
 
 ## Project layout
 

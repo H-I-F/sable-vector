@@ -34,8 +34,7 @@ COPY src ./src
 
 RUN pip install --upgrade pip \
     && pip install "sable @ git+https://github.com/MKA930/sable.git@v0.1.1" \
-    && pip install numpy pydantic rich typer \
-    && pip install . \
+    && pip install ".[mcp]" \
     && pip install "pytest>=7.4"
 
 # --- runtime ---------------------------------------------------------------
