@@ -27,6 +27,7 @@ ledger cannot drift ahead of the repository it describes.
 | 16 | `bench/ann-benchmarks` | `benchmarks/bench_vector.py` | `python -m benchmarks.bench_vector` |
 | 17 | `ci(actions)` | `.github/workflows/ci.yml`, ruff + pytest on Py 3.10/3.11 | `ruff check . && pytest -q` |
 | 18 | `build(docker)` | multi-stage `Dockerfile`, `docker` CI job | `docker build -t sable-vector . && docker run --rm sable-vector pytest -q` (cloud) |
+| 19 | `docs(governance)` | `CONTRIBUTING.md`, `SECURITY.md`, `CHANGELOG.md` | files present, links wired in README |
 
 ## Checklist
 
@@ -48,3 +49,4 @@ ledger cannot drift ahead of the repository it describes.
 - [x] PR 16: 1536 维基准矩阵 / 1536-dimension benchmark matrix
 - [x] PR 17: 自动化 CI 矩阵 / Automated CI matrix (ruff + pytest, Py 3.10/3.11)
 - [x] PR 18: 多阶段 Docker 镜像 / Multi-stage Docker image
+- [x] PR 19: 治理文档 / Governance docs (CONTRIBUTING / SECURITY / CHANGELOG)
