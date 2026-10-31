@@ -28,6 +28,7 @@ ledger cannot drift ahead of the repository it describes.
 | 17 | `ci(actions)` | `.github/workflows/ci.yml`, ruff + pytest on Py 3.10/3.11 | `ruff check . && pytest -q` |
 | 18 | `build(docker)` | multi-stage `Dockerfile`, `docker` CI job | `docker build -t sable-vector . && docker run --rm sable-vector pytest -q` (cloud) |
 | 19 | `docs(governance)` | `CONTRIBUTING.md`, `SECURITY.md`, `CHANGELOG.md` | files present, links wired in README |
+| 20 | `docs(portal)` | CI badge in `README.md`, `README.zh-CN.md` | badge linked to `ci.yml` workflow |
 
 ## Checklist
 
@@ -50,3 +51,4 @@ ledger cannot drift ahead of the repository it describes.
 - [x] PR 17: 自动化 CI 矩阵 / Automated CI matrix (ruff + pytest, Py 3.10/3.11)
 - [x] PR 18: 多阶段 Docker 镜像 / Multi-stage Docker image
 - [x] PR 19: 治理文档 / Governance docs (CONTRIBUTING / SECURITY / CHANGELOG)
+- [x] PR 20: README CI 徽章 / README CI badge

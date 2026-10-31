@@ -12,6 +12,7 @@
 
 <p align="center">
   <a href="https://github.com/MKA930/sable-vector/releases"><img src="https://img.shields.io/github/v/release/MKA930/sable-vector" alt="Release"></a>
+  <a href="https://github.com/MKA930/sable-vector/actions/workflows/ci.yml"><img src="https://github.com/MKA930/sable-vector/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <img src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg" alt="Python">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
   <img src="https://img.shields.io/badge/storage-sable%20LSM-blue.svg" alt="Storage">
