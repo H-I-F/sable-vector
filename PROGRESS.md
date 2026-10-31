@@ -25,6 +25,7 @@ ledger cannot drift ahead of the repository it describes.
 | 14 | `test/chaos-injection` | `tests/test_chaos.py` | `pytest tests/test_chaos.py -v` |
 | 15 | `docs/portal-readme` | `Dockerfile`, `.dockerignore`, `README.md`, `README.zh-CN.md` | `docker build -t sable-vector . && docker run --rm sable-vector pytest -q` |
 | 16 | `bench/ann-benchmarks` | `benchmarks/bench_vector.py` | `python -m benchmarks.bench_vector` |
+| 17 | `ci(actions)` | `.github/workflows/ci.yml`, ruff + pytest on Py 3.10/3.11 | `ruff check . && pytest -q` |
 
 ## Checklist
 
@@ -44,3 +45,4 @@ ledger cannot drift ahead of the repository it describes.
 - [x] PR 14: SIGKILL 混沌故障注入 / SIGKILL chaos injection
 - [x] PR 15: 容器化与双语架构 README / Container image and bilingual README
 - [x] PR 16: 1536 维基准矩阵 / 1536-dimension benchmark matrix
+- [x] PR 17: 自动化 CI 矩阵 / Automated CI matrix (ruff + pytest, Py 3.10/3.11)
