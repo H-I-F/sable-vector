@@ -1,0 +1,47 @@
+version: 2
+
+updates:
+  # Runtime deps: numpy >= 1.24, typer >= 0.12 (PEP 621 in pyproject.toml).
+  #
+  # Known limitation: the `sable` storage engine is pinned as a git direct
+  # reference (`sable @ git+https://github.com/H-I-F/sable.git@v0.1.1`).
+  # Dependabot does NOT update PEP 508 direct references, so that tag stays a
+  # manual decision — the intent is to keep it deliberate, not drifting.
+  # Upstream releases should be adopted through the normal PR flow.
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+      timezone: "Asia/Shanghai"
+    open-pull-requests-limit: 5
+    labels: ["dependencies"]
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+    groups:
+      python-dev-toolchain:
+        dependency-type: "development"
+
+  # Only actions/checkout and actions/setup-python are pinned by tag today.
+  # Note: these floating tags must be replaced with full commit SHAs before the
+  # organization can turn on `sha_pinning_required`.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      timezone: "Asia/Shanghai"
+    labels: ["dependencies", "ci"]
+    commit-message:
+      prefix: "ci(actions)"
+
+  # Tracks the base image in the multi-stage Dockerfile.
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      timezone: "Asia/Shanghai"
+    labels: ["dependencies", "docker"]
+    commit-message:
+      prefix: "chore(docker)"
