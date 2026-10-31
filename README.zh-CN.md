@@ -62,26 +62,33 @@ flowchart TB
 ```mermaid
 flowchart TB
     subgraph write["写入路径 (VectorEngine)"]
+        direction TB
         U["upsert / delete"] --> A["写入向量 v:<id> · sync=False"]
         A --> B["写入索引 idx:<field>:<val>:<id> · sync=False"]
         B --> C["提交 payload p:<id> · sync=True"]
         C --> WAL[("sable WAL + memtable")]
     end
-    WAL --> SST[(SSTables)]
-    WAL --> IDX[(VectorStorage 命名空间适配器)]
-    IDX -->|v:| VEC[float32 向量]
-    IDX -->|p:| PAY[JSON payload]
-    IDX -->|idx:| INV[标量倒排索引]
-    IDX -->|c:/b:| IVF[IVF 质心 / 倒排列表]
+    
+    WAL --> SST[("SSTables")]
+    WAL --> IDX[("VectorStorage 命名空间适配器")]
+    
+    %% 连线标签含特殊字符，需加双引号
+    IDX -->|"v:"| VEC["float32 向量"]
+    IDX -->|"p:"| PAY["JSON payload"]
+    IDX -->|"idx:"| INV["标量倒排索引"]
+    IDX -->|"c:/b:"| IVF["IVF 质心 / 倒排列表"]
 
     subgraph read["读取路径"]
-        Q[query 向量 + 谓词] --> PF{前置 还是 后置 过滤?}
-        PF -->|前置| PRE[ScalarIndex.matching_ids → 候选集]
-        PF -->|后置| POS[FlatIndex top-N → 谓词判定]
-        PRE --> FLAT[FlatIndex.search(candidate_ids)]
-        POS --> ATT[回填 payload]
-        FLAT --> M[Matches: score + distance + payload]
+        direction TB
+        Q["query 向量 + 谓词"] --> PF{"前置 还是 后置 过滤?"}
+        PF -->|前置| PRE["ScalarIndex.matching_ids → 候选集"]
+        PF -->|后置| POS["FlatIndex top-N → 谓词判定"]
+        PRE --> FLAT["FlatIndex.search(candidate_ids)"]
+        POS --> ATT["回填 payload"]
+        FLAT --> M["Matches: score + distance + payload"]
     end
+    
+    %% 跨子图虚线连接
     VEC -.-> FLAT
     PAY -.-> ATT
     INV -.-> PRE
