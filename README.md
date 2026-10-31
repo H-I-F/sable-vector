@@ -62,6 +62,24 @@ vectors, payloads, the scalar index, IVF centroids and posting lists — lives i
 the same key space, separated only by key prefix, so there is one WAL, one
 manifest and one crash-recovery story.
 
+### Component layers
+
+```mermaid
+flowchart TB
+    APP[Python caller] --> ADP["adapter/ — VectorStore protocol"]
+    APP --> QRY["query/ — pre-filter / post-filter executors"]
+    ADP --> QRY
+    QRY --> IDX["index/ — Flat · scalar inverted · IVF"]
+    QRY --> STO["storage.py — namespace adapter v:/p:/idx:/c:/b:"]
+    IDX --> STO
+    STO --> ENG["engine.py — durable upsert / delete / reclaim"]
+    ENG --> SABLE[("sable LSM — WAL + memtable + SSTables")]
+    REC["recovery.py — crash rebuild"] -.-> IDX
+    REC -.-> ENG
+```
+
+### Write and read paths
+
 ```mermaid
 flowchart TB
     subgraph write["Write path (VectorEngine)"]
@@ -167,6 +185,78 @@ The adapter never calls a remote embedding API: pass a local callable that
 returns NumPy/List[float] vectors, and the full `add_texts` →
 `similarity_search` loop runs end to end on one machine.
 
+## Usage guide
+
+### Choosing a distance metric
+
+`metric=` accepts `cosine`, `l2` or `dot`. Every kernel orients its score so
+**higher means closer**, so downstream code can compare and sort without knowing
+which geometry is in play.
+
+| `metric=` | Measures | Typical use |
+| --- | --- | --- |
+| `cosine` | Angular distance over the unit sphere | Pre-normalised text embeddings (the usual case) |
+| `l2` | Euclidean distance | Raw, unnormalised feature vectors |
+| `dot` | Negative dot product | Maximum-inner-product search, retrieval over magnitudes that carry meaning |
+
+### Choosing a filter strategy
+
+Both executors take the same arguments and return a `Matches` list; they differ
+in where the predicate is applied, which decides their failure modes.
+
+| | `PrefilterExecutor` | `PostfilterExecutor` |
+| --- | --- | --- |
+| How | `ScalarIndex` narrows the candidate set first, then `FlatIndex` scores only survivors | `FlatIndex` computes the global top-N, then the predicate discards rows |
+| Best when | The predicate is **selective** (`tenant`, `kind`, `lang`) and the field is indexed | The predicate is **broad**, or the corpus is small enough to spare a wider scan |
+| Failure mode | Only looks at indexed prefix keys — rows missing the index entry are invisible to it | Can return fewer than `k`, because the global top-N may contain near-neighbours that all fail the predicate |
+
+A field must be passed to `VectorEngine.open(indexed_fields=...)` for the
+pre-filter path to be able to use it. Indexed fields are metadata on the write
+path, not schema: adding one later requires a rebuild of the existing corpus.
+
+### Approximate search with IVF
+
+The Flat index scores every candidate, which is exact and perfectly adequate into
+the tens of thousands. Past that, train an IVF index to prune to the partitions
+closest to the query, and widen `nprobe` until recall is acceptable:
+
+```python
+from sable_vector.index.ivf_storage import IvfIndex
+from sable_vector.types import DistanceMetric
+
+index = IvfIndex.train(
+    engine.storage,
+    metric=DistanceMetric.COSINE,
+    dim=1536,
+    partitions=32,
+)
+outcome = index.search(query, k=10, nprobe=4)
+print(outcome.matches, outcome.buckets_scanned)
+```
+
+`nprobe=1` reads a single partition and is the fastest; `nprobe == partitions`
+degenerates to a full scan. The benchmark reports the latency/recall curve so
+you can pick the operating point against your own data:
+
+```bash
+python -m benchmarks.bench_vector --dim 1536 --sizes 10000
+```
+
+### Durability and maintenance
+
+Every mutation is staged unsynced and made durable by the payload commit, so a
+kill during an upsert leaves either nothing or a complete record — never a
+vector without its payload. Opening a collection rebuilds the in-memory indexes
+from the WAL and SSTables automatically.
+
+If you ever want to reconcile derived data by hand (torn writes, entries left by
+a previous crash), one pass is enough:
+
+```python
+report = engine.reclaim()
+print(report.orphan_vectors, report.orphan_payloads)
+```
+
 ## Installation
 
 ```bash
@@ -202,6 +292,7 @@ docker run --rm sable-vector pytest -q          # validates the build
 - Contributor guide: [CONTRIBUTING.md](./CONTRIBUTING.md)
 - Security policy: [SECURITY.md](./SECURITY.md)
 - Release history: [CHANGELOG.md](./CHANGELOG.md)
+- Evolution ledger (one tick per PR): [PROGRESS.md](./PROGRESS.md)
 - v0.1.0 announcement: [docs/RELEASE_NOTES_v0.1.0.md](./docs/RELEASE_NOTES_v0.1.0.md)
 
 ## License
