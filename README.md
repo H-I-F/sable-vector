@@ -82,27 +82,36 @@ flowchart TB
 
 ```mermaid
 flowchart TB
+    %% --- Write Path ---
     subgraph write["Write path (VectorEngine)"]
+        direction TB
         U["upsert / delete"] --> A["stage vector v:<id> · sync=False"]
         A --> B["stage index idx:<field>:<val>:<id> · sync=False"]
         B --> C["commit payload p:<id> · sync=True"]
         C --> WAL[("sable WAL + memtable")]
     end
-    WAL --> SST[(SSTables)]
-    WAL --> IDX[(VectorStorage namespace adapter)]
-    IDX -->|v:| VEC[float32 images]
-    IDX -->|p:| PAY[JSON payloads]
-    IDX -->|idx:| INV[scalar inverted index]
-    IDX -->|c:/b:| IVF[IVF centroids / posting lists]
 
+    WAL --> SST[("SSTables")]
+    WAL --> IDX[("VectorStorage namespace adapter")]
+    
+    %% 连线标签含特殊字符，需加双引号以防解析错误
+    IDX -->|"v:"| VEC["float32 images"]
+    IDX -->|"p:"| PAY["JSON payloads"]
+    IDX -->|"idx:"| INV["scalar inverted index"]
+    IDX -->|"c:/b:"| IVF["IVF centroids / posting lists"]
+
+    %% --- Read Path ---
     subgraph read["Read path"]
-        Q[query vector + predicate] --> PF{Prefilter or Postfilter?}
-        PF -->|pre| PRE[ScalarIndex.matching_ids → candidate set]
-        PF -->|post| POS[FlatIndex top-N → predicate check]
-        PRE --> FLAT[FlatIndex.search(candidate_ids)]
-        POS --> ATT[attach payloads]
-        FLAT --> M[Matches with score + distance + payload]
+        direction TB
+        Q["query vector + predicate"] --> PF{"Prefilter or Postfilter?"}
+        PF -->|pre| PRE["ScalarIndex.matching_ids → candidate set"]
+        PF -->|post| POS["FlatIndex top-N → predicate check"]
+        PRE --> FLAT["FlatIndex.search(candidate_ids)"]
+        POS --> ATT["attach payloads"]
+        FLAT --> M["Matches with score + distance + payload"]
     end
+
+    %% --- Cross-Subgraph Connections ---
     VEC -.-> FLAT
     PAY -.-> ATT
     INV -.-> PRE
