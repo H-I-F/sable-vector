@@ -13,6 +13,9 @@
 | [发版公告](#发版公告) | 版本之间升级 | 每个 tag 一篇，中英双语 |
 | [案例研究](#案例研究) | 复盘、设计评审 | 带复现过程的叙事 |
 | [架构决策记录](#架构决策记录) | 要改键空间或写入契约的人 | ADR-001 … ADR-005，中英双语 |
+| [工程实践 Skills](#工程实践-skills底层实现指南) | 要实现或移植这个引擎的人 | 带代码与表格的叙事指南 |
+| [硬核问答 FAQ](#硬核问答-faq) | 面试、设计评审、「干嘛不直接……」的追问 | 中英双语问答，配 Mermaid 图 |
+| [实践配方 Recipes](#实践配方-recipes) | 用引擎解决具体问题 | 可运行的片段、代价表 |
 | [基准测试](#基准测试) | 挑工作点 | 可运行脚本 + 实测报告 |
 | [源码地图](#源码地图) | 从概念反查代码 | 模块对照表 |
 
@@ -51,6 +54,37 @@
   [简体中文](decisions/adr-005-pinned-dependencies.zh-CN.md) —— `mcp<2` 与 `sable@v0.1.1` 直引用，
   以及为什么让 Dependabot 别碰它们。
 
+## 工程实践 Skills：底层实现指南
+
+三篇按不变量要求的顺序读源码的指南，每篇都带代码、失效方式表格和检查清单。
+
+- [零拷贝向量：编解码与分数方向](skills/zero-copy-codec.md) /
+  [简体中文](skills/zero-copy-codec.zh-CN.md) —— 无帧头的 `<f4` 镜像、`np.frombuffer`
+  视图、`writeable=True` 副本，以及三种度量为什么共用一种分数方向。
+- [持久写入：暂存、提交记录与崩溃重建](skills/durable-upsert.md) /
+  [简体中文](skills/durable-upsert.zh-CN.md) —— `_write_batch` 把每个键 unsynced 暂存、
+  只在 payload 上提交一次；`reclaim()` 与 `recover()` 按已提交集合的纯函数重建派生状态。
+- [混合查询策略：两个执行器，两条代价曲线](skills/hybrid-query-strategies.md) /
+  [简体中文](skills/hybrid-query-strategies.zh-CN.md) —— `matching_ids`、排序后的候选
+  gather、后置过滤的遍历，以及用 `threading.Barrier` 写确定性竞态测试。
+
+## 硬核问答 FAQ
+
+八句「干嘛不直接……」，分五组：单一键空间、提交边界、字节与分数、两条过滤路径、
+照实测数字谈近似检索，以及钉死的依赖。每个回答都指向真实存在的符号。
+
+- English: [Hybrid retrieval, answered honestly](faq/vector-search-qa.md)
+- 简体中文: [混合检索：把追问回答清楚](faq/vector-search-qa.zh-CN.md)
+
+## 实践配方 Recipes
+
+- [按租户收窄的混合检索](recipes/hybrid-retrieval.md) /
+  [简体中文](recipes/hybrid-retrieval.zh-CN.md) —— open 时声明 `indexed_fields`、
+  打分前解析谓词、看 `scored` 而不只看结果列表。含三种会悄悄给错答案的情况。
+- [照实测数字选 `nprobe`](recipes/ivf-nprobe-tuning.md) /
+  [简体中文](recipes/ivf-nprobe-tuning.zh-CN.md) —— 基于 2026 年 11 月那次运行的决策步骤，
+  包括为什么 1000 条时精确检索才是默认值，以及为什么 p95 离群值要留在表里。
+
 ## 基准测试
 
 [`benchmarks/bench_vector.py`](../benchmarks/bench_vector.py) 自带断言：常驻的 `FlatIndex` 是穷举的，
@@ -86,9 +120,15 @@
 1. [`README.md`](../README.md) —— 一页纸的心智模型和三张 Mermaid 图。
 2. [ADR-001](decisions/adr-001-single-keyspace.md) 然后
    [ADR-002](decisions/adr-002-payload-commit-record.md) —— 所有持久化承诺都压在这两条上。
-3. [ADR-003](decisions/adr-003-dual-filter-strategies.md) —— 为什么是两个执行器，而不是一个更聪明的。
-4. [案例研究](case-studies/cross-layer-bugfix.md) —— 上游不变量只在一条读路径上实现时会出什么事。
-5. [实测报告](reports/benchmark-2026-11.md) —— 定 `nprobe` 之前先看它。
+3. [Skills → 持久写入](skills/durable-upsert.zh-CN.md) 然后
+   [Skills → 零拷贝编解码](skills/zero-copy-codec.zh-CN.md) —— 这两条决策落到源码里长什么样。
+4. [ADR-003](decisions/adr-003-dual-filter-strategies.md) 与
+   [Skills → 混合查询策略](skills/hybrid-query-strategies.zh-CN.md) —— 为什么是两个执行器，
+   而不是一个更聪明的。
+5. [案例研究](case-studies/cross-layer-bugfix.md) —— 上游不变量只在一条读路径上实现时会出什么事。
+6. [硬核问答](faq/vector-search-qa.zh-CN.md) —— 「干嘛不直接……」的追问，先答一遍。
+7. [Recipes → 选 `nprobe`](recipes/ivf-nprobe-tuning.zh-CN.md) 与
+   [实测报告](reports/benchmark-2026-11.zh-CN.md) —— 定工作点之前先看这两份。
 
 ---
 

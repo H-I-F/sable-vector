@@ -334,13 +334,17 @@ when the client disconnects.
 
 The engineering notes under [`docs/`](docs/README.md) are the long-form companion to
 this README: release announcements, the cross-layer post-mortem, five architecture
-decision records, and a measured benchmark report. Start there when you need to know
+decision records, three low-level implementation guides, a hard-question FAQ, two
+runnable recipes, and a measured benchmark report. Start there when you need to know
 **why**, not just how. Every note is available in English and 简体中文.
 
 | Entry | What it covers |
 | --- | --- |
 | [Engineering notes index](docs/README.md) | all of the below, plus a source map and a suggested reading order |
 | [ADR-001 … ADR-005](docs/README.md#architecture-decision-records) | one key space, the payload commit boundary, the two filter strategies, the codec, the dependency pins |
+| [Skills: implementation practice](docs/README.md#skills-low-level-implementation-practice) | zero-copy codec, durable upsert and crash rebuild, hybrid query strategies |
+| [FAQ](docs/faq/vector-search-qa.md) | eight "why not just…" questions, with the failure modes stated plainly |
+| [Recipes](docs/README.md#recipes-building-on-the-engine) | tenant-scoped hybrid retrieval and choosing `nprobe` against measured numbers |
 | [Case study](docs/case-studies/cross-layer-bugfix.md) | the upstream snapshot-read bug and its pure-`sable` reproduction |
 | [Benchmark report](docs/reports/benchmark-2026-11.md) | recall, latency and `nprobe` measured on two corpus sizes |
 | [Release notes](docs/RELEASE_NOTES_v0.1.1.md) | what shipped in v0.1.1 and v0.1.0, and the limits of each |
@@ -356,6 +360,11 @@ decision records, and a measured benchmark report. Start there when you need to 
 - v0.1.1 announcement: [docs/RELEASE_NOTES_v0.1.1.md](./docs/RELEASE_NOTES_v0.1.1.md) · [简体中文](./docs/RELEASE_NOTES_v0.1.1.zh-CN.md)
 - v0.1.0 announcement: [docs/RELEASE_NOTES_v0.1.0.md](./docs/RELEASE_NOTES_v0.1.0.md) · [简体中文](./docs/RELEASE_NOTES_v0.1.0.zh-CN.md)
 - Case study — the cross-layer bug hunt: [docs/case-studies/cross-layer-bugfix.md](./docs/case-studies/cross-layer-bugfix.md) · [简体中文](./docs/case-studies/cross-layer-bugfix.zh-CN.md)
+- Implementation guides: [Zero-copy codec](./docs/skills/zero-copy-codec.md) · [简体中文](./docs/skills/zero-copy-codec.zh-CN.md)
+- Implementation guides: [Durable upsert](./docs/skills/durable-upsert.md) · [简体中文](./docs/skills/durable-upsert.zh-CN.md)
+- Implementation guides: [Hybrid query strategies](./docs/skills/hybrid-query-strategies.md) · [简体中文](./docs/skills/hybrid-query-strategies.zh-CN.md)
+- Hard-question FAQ: [English](./docs/faq/vector-search-qa.md) · [简体中文](./docs/faq/vector-search-qa.zh-CN.md)
+- Recipes: [Hybrid retrieval](./docs/recipes/hybrid-retrieval.md) · [简体中文](./docs/recipes/hybrid-retrieval.zh-CN.md) · [Choosing `nprobe`](./docs/recipes/ivf-nprobe-tuning.md) · [简体中文](./docs/recipes/ivf-nprobe-tuning.zh-CN.md)
 
 ## License
 
