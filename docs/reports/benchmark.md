@@ -1,6 +1,6 @@
-[English](benchmark-2026-11.md) | [简体中文](benchmark-2026-11.zh-CN.md)
+[English](benchmark.md) | [简体中文](benchmark.zh-CN.md)
 
-# ANN benchmark — November 2026
+# ANN benchmark
 
 A measured run of `benchmarks/bench_vector.py`, published so that `nprobe` can be
 chosen against numbers rather than intuition. The harness is self-asserting: the

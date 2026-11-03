@@ -29,10 +29,10 @@ ledger cannot drift ahead of the repository it describes.
 | 18 | `build(docker)` | multi-stage `Dockerfile`, `docker` CI job | `docker build -t sable-vector . && docker run --rm sable-vector pytest -q` (cloud) |
 | 19 | `docs(governance)` | `CONTRIBUTING.md`, `SECURITY.md`, `CHANGELOG.md` | files present, links wired in README |
 | 20 | `docs(portal)` | README refactor: CI badge, layered diagram, usage guide, doc nav | Markdown syntax + table validation |
-| 21 | `chore(release)` | `docs/RELEASE_NOTES_v0.1.0.md` | `gh release create v0.1.0 --notes-file docs/RELEASE_NOTES_v0.1.0.md` |
+| 21 | `chore(release)` | `docs/release-notes-v0.1.0.md` | `gh release create v0.1.0 --notes-file docs/release-notes-v0.1.0.md` |
 | 22 | `docs(case-study)` | `docs/case-studies/cross-layer-bugfix.md`, README highlight | links to `H-I-F/sable`, cross-linked from both repos |
 | 23 | `feat(mcp)` | `adapter/mcp_server.py`, `cli.py` (`serve-mcp`) | `sable-vector serve-mcp --help` + stdio handshake |
-| 24 | `chore(release)` | version `0.1.1`, `docs/RELEASE_NOTES_v0.1.1.md`, CHANGELOG | `gh release create v0.1.1 --notes-file docs/RELEASE_NOTES_v0.1.1.md` |
+| 24 | `chore(release)` | version `0.1.1`, `docs/release-notes-v0.1.1.md`, CHANGELOG | `gh release create v0.1.1 --notes-file docs/release-notes-v0.1.1.md` |
 
 ## Checklist
 

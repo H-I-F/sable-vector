@@ -209,4 +209,4 @@ records both as deliberate choices.
 | Types and `Match` | [`types.py`](../../src/sable_vector/types.py) |
 | The decision | [ADR-004](../decisions/adr-004-float32-codec-and-score-orientation.md) |
 | Byte-image and dtype tests | [`tests/test_codec.py`](../../tests/test_codec.py), [`tests/test_distance.py`](../../tests/test_distance.py) |
-| Why the codec defines recall ground truth | [benchmark report](../reports/benchmark-2026-11.md) |
+| Why the codec defines recall ground truth | [benchmark report](../reports/benchmark.md) |

@@ -27,10 +27,10 @@
 | 18 | `build(docker)` | 多阶段 `Dockerfile`、`docker` CI job | `docker build -t sable-vector . && docker run --rm sable-vector pytest -q`（云端） |
 | 19 | `docs(governance)` | `CONTRIBUTING.md`、`SECURITY.md`、`CHANGELOG.md` | 文件齐备，README 里链接接好 |
 | 20 | `docs(portal)` | README 重构：CI 徽章、分层图、用法指南、文档导航 | Markdown 语法与表格校验 |
-| 21 | `chore(release)` | `docs/RELEASE_NOTES_v0.1.0.md` | `gh release create v0.1.0 --notes-file docs/RELEASE_NOTES_v0.1.0.md` |
+| 21 | `chore(release)` | `docs/release-notes-v0.1.0.md` | `gh release create v0.1.0 --notes-file docs/release-notes-v0.1.0.md` |
 | 22 | `docs(case-study)` | `docs/case-studies/cross-layer-bugfix.md`，README 高亮 | 链到 `H-I-F/sable`，两个仓库互相引用 |
 | 23 | `feat(mcp)` | `adapter/mcp_server.py`、`cli.py`（`serve-mcp`） | `sable-vector serve-mcp --help` + stdio 握手 |
-| 24 | `chore(release)` | 版本 `0.1.1`、`docs/RELEASE_NOTES_v0.1.1.md`、CHANGELOG | `gh release create v0.1.1 --notes-file docs/RELEASE_NOTES_v0.1.1.md` |
+| 24 | `chore(release)` | 版本 `0.1.1`、`docs/release-notes-v0.1.1.md`、CHANGELOG | `gh release create v0.1.1 --notes-file docs/release-notes-v0.1.1.md` |
 
 ## 清单
 

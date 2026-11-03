@@ -4,7 +4,7 @@
 
 > The most useful question about IVF in this engine is not "which `nprobe`
 > should I use" but "should I be using IVF at all". This recipe works from the
-> [November 2026 benchmark report](../reports/benchmark-2026-11.md) — the numbers
+> [measured benchmark report](../reports/benchmark.md) — the numbers
 > below are quoted from that run, not produced for this page — and turns them into
 > a decision procedure. No benchmark was rerun here.
 
@@ -155,7 +155,7 @@ returns plausible neighbours with quietly degraded recall. Check
 
 | Concern | Source |
 | --- | --- |
-| The measured report | [benchmark-2026-11.md](../reports/benchmark-2026-11.md) |
+| The measured report | [benchmark.md](../reports/benchmark.md) |
 | The runnable harness | [`benchmarks/bench_vector.py`](../../benchmarks/bench_vector.py) |
 | `nprobe` pruning and posting lists | [`index/ivf_storage.py`](../../src/sable_vector/index/ivf_storage.py) |
 | Centroid training | [`index/ivf_cluster.py`](../../src/sable_vector/index/ivf_cluster.py) |

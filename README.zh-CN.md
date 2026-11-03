@@ -297,8 +297,8 @@ sable-vector serve-mcp
 | [硬核问答 FAQ](docs/faq/vector-search-qa.zh-CN.md) | 八句「干嘛不直接……」，失效方式照实写 |
 | [实践配方 Recipes](docs/README.zh-CN.md#实践配方-recipes) | 按租户收窄的混合检索、照实测数字选 `nprobe` |
 | [案例复盘](docs/case-studies/cross-layer-bugfix.zh-CN.md) | 上游快照读缺陷，以及纯 `sable` 复现 |
-| [实测报告](docs/reports/benchmark-2026-11.zh-CN.md) | 两档语料规模下的 recall、延迟与 `nprobe` |
-| [发版公告](docs/RELEASE_NOTES_v0.1.2.zh-CN.md) | v0.1.2、v0.1.1 与 v0.1.0 各自交付了什么、各自的限制 |
+| [实测报告](docs/reports/benchmark.zh-CN.md) | 两档语料规模下的 recall、延迟与 `nprobe` |
+| [发版公告](docs/release-notes-v0.1.2.zh-CN.md) | v0.1.2、v0.1.1 与 v0.1.0 各自交付了什么、各自的限制 |
 
 ## 文档与治理
 
@@ -308,9 +308,9 @@ sable-vector serve-mcp
 - 安全策略：[SECURITY.md](./SECURITY.md) · [简体中文](./SECURITY.zh-CN.md)
 - 发布历史：[CHANGELOG.md](./CHANGELOG.md) · [简体中文](./CHANGELOG.zh-CN.md)
 - 演进台账（每个 PR 一个勾）：[PROGRESS.md](./PROGRESS.md) · [简体中文](./PROGRESS.zh-CN.md)
-- v0.1.2 发布公告：[docs/RELEASE_NOTES_v0.1.2.md](./docs/RELEASE_NOTES_v0.1.2.md) · [简体中文](./docs/RELEASE_NOTES_v0.1.2.zh-CN.md)
-- v0.1.1 发布公告：[docs/RELEASE_NOTES_v0.1.1.md](./docs/RELEASE_NOTES_v0.1.1.md) · [简体中文](./docs/RELEASE_NOTES_v0.1.1.zh-CN.md)
-- v0.1.0 发布公告：[docs/RELEASE_NOTES_v0.1.0.md](./docs/RELEASE_NOTES_v0.1.0.md) · [简体中文](./docs/RELEASE_NOTES_v0.1.0.zh-CN.md)
+- v0.1.2 发布公告：[docs/release-notes-v0.1.2.md](./docs/release-notes-v0.1.2.md) · [简体中文](./docs/release-notes-v0.1.2.zh-CN.md)
+- v0.1.1 发布公告：[docs/release-notes-v0.1.1.md](./docs/release-notes-v0.1.1.md) · [简体中文](./docs/release-notes-v0.1.1.zh-CN.md)
+- v0.1.0 发布公告：[docs/release-notes-v0.1.0.md](./docs/release-notes-v0.1.0.md) · [简体中文](./docs/release-notes-v0.1.0.zh-CN.md)
 - 案例复盘——跨层 Bug 排查记：[docs/case-studies/cross-layer-bugfix.md](./docs/case-studies/cross-layer-bugfix.md) · [简体中文](./docs/case-studies/cross-layer-bugfix.zh-CN.md)
 - 实现指南：[零拷贝编解码](./docs/skills/zero-copy-codec.md) · [简体中文](./docs/skills/zero-copy-codec.zh-CN.md)
 - 实现指南：[持久写入](./docs/skills/durable-upsert.md) · [简体中文](./docs/skills/durable-upsert.zh-CN.md)

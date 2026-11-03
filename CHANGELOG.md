@@ -60,7 +60,7 @@ and something to lose in reproducibility.
   durable upsert, hybrid query strategies) and the `docs/recipes/` set (hybrid
   retrieval, choosing `nprobe`).
 - **A measured benchmark report, release announcements and Chinese editions of
-  the existing notes** — `docs/reports/benchmark-2026-11.md`, the v0.1.0 and
+  the existing notes** — `docs/reports/benchmark.md`, the v0.1.0 and
   v0.1.1 announcements, the cross-layer case study, and Chinese versions of
   `CHANGELOG`, `CONTRIBUTING`, `SECURITY` and `PROGRESS`.
 - **Bilingual wiring in both READMEs** — a Documentation table and a governance
