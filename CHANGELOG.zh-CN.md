@@ -47,7 +47,7 @@
 - **FAQ、三篇工程实践指南与两篇实践配方**，均为双语 —— `docs/faq/vector-search-qa.md`、
   `docs/skills/` 那组（零拷贝编解码、持久写入、混合查询策略）、`docs/recipes/` 那组
   （混合检索、选择 `nprobe`）。
-- **实测报告、发版公告与既有笔记的中文版** —— `docs/reports/benchmark-2026-11.md`、v0.1.0 与
+- **实测报告、发版公告与既有笔记的中文版** —— `docs/reports/benchmark.md`、v0.1.0 与
   v0.1.1 公告、跨层案例复盘，以及 `CHANGELOG`、`CONTRIBUTING`、`SECURITY`、`PROGRESS` 的中文版。
 - **两份 README 的双语入口** —— 文档表格与治理清单里每条都成对给出 English 和简体中文。
 

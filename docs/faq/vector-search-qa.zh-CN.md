@@ -3,7 +3,7 @@
 # 混合检索：把追问回答清楚
 
 > 读代码的人常会冒出一句「干嘛不直接……」，这里收了八个这样的问题。每个回答都指向
-> `src/sable_vector/` 里真实存在的符号，或者[实测报告](../reports/benchmark-2026-11.zh-CN.md)
+> `src/sable_vector/` 里真实存在的符号，或者[实测报告](../reports/benchmark.zh-CN.md)
 > 里量出来的数字。设计取舍讲透，边界也照实讲——凌晨两点排障的人，最不需要的就是一份
 > 把失效方式藏起来的文档。
 
@@ -171,7 +171,7 @@ grid = self._matrix[rows]
 ### Q7. 为什么 IVF 在 5000 条上反而比精确检索慢？`nprobe` 该怎么选？
 
 因为近似检索不是免费的加速档。IVF 在给第一条向量打分之前，先得给质心打分、再读倒排桶。
-[2026 年 11 月那次实测](../reports/benchmark-2026-11.zh-CN.md)（128 维、16 个簇、30 条查询、
+[那次实测](../reports/benchmark.zh-CN.md)（128 维、16 个簇、30 条查询、
 seed 42）给的是：
 
 | 语料 | 索引 | nprobe | p50 (ms) | qps | recall@k |

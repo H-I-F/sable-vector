@@ -1,4 +1,4 @@
-[English](./RELEASE_NOTES_v0.1.2.md) | 简体中文
+[English](./release-notes-v0.1.2.md) | 简体中文
 
 # sable-vector v0.1.2
 
@@ -19,14 +19,14 @@
 - **一篇 FAQ、三篇工程实践指南、两篇实践配方**，全部双语：`vector-search-qa`、
   `skills/` 那组（零拷贝编解码、持久写入、混合查询策略）、`recipes/` 那组（按租户收窄的混合
   检索、选择 `nprobe`）。
-- **一份带实测数字的报告**（`docs/reports/benchmark-2026-11.md`）、v0.1.0 与 v0.1.1 公告、
+- **一份带实测数字的报告**（`docs/reports/benchmark.md`）、v0.1.0 与 v0.1.1 公告、
   跨层案例复盘，都各有中文配套；根目录里 `CHANGELOG`、`CONTRIBUTING`、`SECURITY`、`PROGRESS`
   的中文版也一并补齐。
 - **README 接好了线。** 文档表格，以及每条都成对给出 English 与简体中文的治理清单。
 
 ## 这一版里没有什么
 
-没有重跑基准。配方里引用的 recall、延迟和 `nprobe` 数字，全部直接取自 2026 年 11 月那份报告，
+没有重跑基准。配方里引用的 recall、延迟和 `nprobe` 数字，全部直接取自 那份实测报告，
 包括那个没有抹平、原样留着的 p95 离群值。指南里的代码片段都从 `src/sable_vector/` 摘出，
 不是为写文档另外编的。
 

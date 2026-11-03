@@ -189,4 +189,4 @@ k 个被完整排序，而且排序是**稳定**的，同分保持插入序。�
 | 类型与 `Match` | [`types.py`](../../src/sable_vector/types.py) |
 | 决策记录 | [ADR-004](../decisions/adr-004-float32-codec-and-score-orientation.zh-CN.md) |
 | 字节镜像与 dtype 测试 | [`tests/test_codec.py`](../../tests/test_codec.py)、[`tests/test_distance.py`](../../tests/test_distance.py) |
-| 为什么编解码定义了 recall 的基准 | [实测报告](../reports/benchmark-2026-11.zh-CN.md) |
+| 为什么编解码定义了 recall 的基准 | [实测报告](../reports/benchmark.zh-CN.md) |

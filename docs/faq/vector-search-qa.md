@@ -4,7 +4,7 @@
 
 > Eight questions that come up when someone reads this engine's code and asks
 > "why not just…". Every answer points at a real symbol in `src/sable_vector/`
-> or at a measured number in [the benchmark report](../reports/benchmark-2026-11.md).
+> or at a measured number in [the benchmark report](../reports/benchmark.md).
 > The limits are stated as plainly as the design decisions — a vector store that
 > hides its failure modes is not much use to the person debugging it at 2 a.m.
 
@@ -205,7 +205,7 @@ candidate list, not over the corpus.
 
 Because approximate search is not a free faster mode. IVF pays centroid scoring
 and posting-list reads *before* it scores a single vector. From
-[the November 2026 run](../reports/benchmark-2026-11.md) (128 dimensions, 16
+[the measured run](../reports/benchmark.md) (128 dimensions, 16
 clusters, 30 queries, seed 42):
 
 | corpus | index | nprobe | p50 (ms) | qps | recall@k |

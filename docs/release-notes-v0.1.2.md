@@ -24,7 +24,7 @@ are now complete, bilingual, and reachable from one place.
   `vector-search-qa`, the `skills/` set on the zero-copy codec, durable upsert and
   hybrid query strategies, and the `recipes/` set on tenant-scoped hybrid
   retrieval and choosing `nprobe`.
-- **A measured benchmark report** (`docs/reports/benchmark-2026-11.md`), the
+- **A measured benchmark report** (`docs/reports/benchmark.md`), the
   v0.1.0 and v0.1.1 announcements, and the cross-layer case study — each with a
   Chinese companion. Chinese editions of `CHANGELOG`, `CONTRIBUTING`, `SECURITY`
   and `PROGRESS` round out the root.
@@ -34,7 +34,7 @@ are now complete, bilingual, and reachable from one place.
 ## What is not in it
 
 No benchmark was re-run. Recall, latency and the `nprobe` figures quoted in the
-recipes come straight from the November 2026 report, including the p95 outlier
+recipes come straight from the measured report, including the p95 outlier
 that was left in rather than smoothed away. Every code snippet in the guides is
 taken from `src/sable_vector/`, not written for the sake of the documentation.
 

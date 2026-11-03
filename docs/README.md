@@ -22,11 +22,11 @@
 
 ## Release notes
 
-- [v0.1.0](RELEASE_NOTES_v0.1.0.md) / [简体中文](RELEASE_NOTES_v0.1.0.zh-CN.md) — first tagged
+- [v0.1.0](release-notes-v0.1.0.md) / [简体中文](release-notes-v0.1.0.zh-CN.md) — first tagged
   release: durable hybrid retrieval, pre/post filtering, IVF, offline adapter.
-- [v0.1.1](RELEASE_NOTES_v0.1.1.md) / [简体中文](RELEASE_NOTES_v0.1.1.zh-CN.md) — the MCP stdio
+- [v0.1.1](release-notes-v0.1.1.md) / [简体中文](release-notes-v0.1.1.zh-CN.md) — the MCP stdio
   server, the `mcp<2` pin, and the quickstart corrections.
-- [v0.1.2](RELEASE_NOTES_v0.1.2.md) / [简体中文](RELEASE_NOTES_v0.1.2.zh-CN.md) — the bilingual
+- [v0.1.2](release-notes-v0.1.2.md) / [简体中文](release-notes-v0.1.2.zh-CN.md) — the bilingual
   FAQ, skills, recipes and notes; no engine changes.
 
 ## Case studies
@@ -93,7 +93,7 @@ measured numbers, and the pinned dependencies. Each answer points at a real symb
   the result list. Includes the three ways the query can quietly go wrong.
 - [Choosing `nprobe` against measured numbers](recipes/ivf-nprobe-tuning.md) /
   [简体中文](recipes/ivf-nprobe-tuning.zh-CN.md) — a decision procedure built on
-  the November 2026 run, including why exact search is the right default at
+  the measured run, including why exact search is the right default at
   1,000 vectors and why the p95 outlier is left in the table.
 
 ## Benchmarks
@@ -102,8 +102,8 @@ measured numbers, and the pinned dependencies. Each answer points at a real symb
 `FlatIndex` is exhaustive and defines recall = 1.0, so every approximate number is measured against
 it rather than assumed. Run it with `python -m benchmarks.bench_vector --dim 1536 --sizes 10000`.
 
-- [Measured report](reports/benchmark-2026-11.md) /
-  [简体中文](reports/benchmark-2026-11.zh-CN.md) — latency, throughput and the recall/`nprobe` curve
+- [Measured report](reports/benchmark.md) /
+  [简体中文](reports/benchmark.zh-CN.md) — latency, throughput and the recall/`nprobe` curve
   on two corpus sizes, with the host and the parts the run does not cover stated plainly.
 
 ## Source map
@@ -141,7 +141,7 @@ it rather than assumed. Run it with `python -m benchmarks.bench_vector --dim 153
    only implemented on one read path.
 6. [FAQ](faq/vector-search-qa.md) — the "why not just…" pushback, pre-answered.
 7. [Recipes → Choosing `nprobe`](recipes/ivf-nprobe-tuning.md) and the
-   [benchmark report](reports/benchmark-2026-11.md) — before choosing an operating point.
+   [benchmark report](reports/benchmark.md) — before choosing an operating point.
 
 ---
 

@@ -21,11 +21,11 @@
 
 ## 发版公告
 
-- [v0.1.0](RELEASE_NOTES_v0.1.0.md) / [简体中文](RELEASE_NOTES_v0.1.0.zh-CN.md) —— 首个 tag：
+- [v0.1.0](release-notes-v0.1.0.md) / [简体中文](release-notes-v0.1.0.zh-CN.md) —— 首个 tag：
   持久化的混合检索、前置/后置过滤、IVF、离线适配器。
-- [v0.1.1](RELEASE_NOTES_v0.1.1.md) / [简体中文](RELEASE_NOTES_v0.1.1.zh-CN.md) —— MCP stdio
+- [v0.1.1](release-notes-v0.1.1.md) / [简体中文](release-notes-v0.1.1.zh-CN.md) —— MCP stdio
   服务端、`mcp<2` 固定，以及 quickstart 的几处更正。
-- [v0.1.2](RELEASE_NOTES_v0.1.2.md) / [简体中文](RELEASE_NOTES_v0.1.2.zh-CN.md) —— 补齐中英双语的
+- [v0.1.2](release-notes-v0.1.2.md) / [简体中文](release-notes-v0.1.2.zh-CN.md) —— 补齐中英双语的
   FAQ、工程实践、实践配方与笔记，引擎没有改动。
 
 ## 案例研究
@@ -84,7 +84,7 @@
   [简体中文](recipes/hybrid-retrieval.zh-CN.md) —— open 时声明 `indexed_fields`、
   打分前解析谓词、看 `scored` 而不只看结果列表。含三种会悄悄给错答案的情况。
 - [照实测数字选 `nprobe`](recipes/ivf-nprobe-tuning.md) /
-  [简体中文](recipes/ivf-nprobe-tuning.zh-CN.md) —— 基于 2026 年 11 月那次运行的决策步骤，
+  [简体中文](recipes/ivf-nprobe-tuning.zh-CN.md) —— 基于那次实测运行的决策步骤，
   包括为什么 1000 条时精确检索才是默认值，以及为什么 p95 离群值要留在表里。
 
 ## 基准测试
@@ -93,8 +93,8 @@
 把 recall 定义为 1.0，所以每个近似数字都是拿它当 ground truth 量出来的，不是假定出来的。
 跑法：`python -m benchmarks.bench_vector --dim 1536 --sizes 10000`。
 
-- [实测报告](reports/benchmark-2026-11.md) /
-  [简体中文](reports/benchmark-2026-11.zh-CN.md) —— 两档语料规模下的延迟、吞吐和
+- [实测报告](reports/benchmark.md) /
+  [简体中文](reports/benchmark.zh-CN.md) —— 两档语料规模下的延迟、吞吐和
   recall / `nprobe` 曲线，采集机器与这次运行刻意不覆盖的部分都写明。
 
 ## 源码地图
@@ -130,7 +130,7 @@
 5. [案例研究](case-studies/cross-layer-bugfix.md) —— 上游不变量只在一条读路径上实现时会出什么事。
 6. [硬核问答](faq/vector-search-qa.zh-CN.md) —— 「干嘛不直接……」的追问，先答一遍。
 7. [Recipes → 选 `nprobe`](recipes/ivf-nprobe-tuning.zh-CN.md) 与
-   [实测报告](reports/benchmark-2026-11.zh-CN.md) —— 定工作点之前先看这两份。
+   [实测报告](reports/benchmark.zh-CN.md) —— 定工作点之前先看这两份。
 
 ---
 

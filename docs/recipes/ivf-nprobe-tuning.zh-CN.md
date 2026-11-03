@@ -3,7 +3,7 @@
 # 实践配方：照实测数字选 `nprobe`
 
 > 关于这个引擎里的 IVF，最有用的问题不是「`nprobe` 该设多少」，而是「到底该不该上 IVF」。
-> 这篇以 [2026 年 11 月的实测报告](../reports/benchmark-2026-11.zh-CN.md) 为据——下面的数字
+> 这篇以 [实测报告](../reports/benchmark.zh-CN.md) 为据——下面的数字
 > 全部引自那次运行，不是为这一页现跑的——把它整理成一套决策步骤。本文没有重跑压测。
 
 ## 第 0 步：先弄清索引在打分之前就要付什么
@@ -129,7 +129,7 @@ python -m benchmarks.bench_vector --dim 1536 --sizes 10000 --queries 50
 
 | 想看的事 | 出处 |
 | --- | --- |
-| 实测报告 | [benchmark-2026-11.md](../reports/benchmark-2026-11.zh-CN.md) |
+| 实测报告 | [benchmark.md](../reports/benchmark.zh-CN.md) |
 | 能跑的压测脚本 | [`benchmarks/bench_vector.py`](../../benchmarks/bench_vector.py) |
 | `nprobe` 修剪与倒排桶 | [`index/ivf_storage.py`](../../src/sable_vector/index/ivf_storage.py) |
 | 质心训练 | [`index/ivf_cluster.py`](../../src/sable_vector/index/ivf_cluster.py) |

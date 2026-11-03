@@ -1,4 +1,4 @@
-[English](./RELEASE_NOTES_v0.1.1.md) | 简体中文
+[English](./release-notes-v0.1.1.md) | 简体中文
 
 # sable-vector v0.1.1
 

@@ -160,7 +160,7 @@ This is the part that is easy to get wrong, because the two projects can drift:
    relationship is discoverable from either side.
 
 The full write-up of the moment is also linked from the v0.1.0 announcement in
-[`docs/RELEASE_NOTES_v0.1.0.md`](../RELEASE_NOTES_v0.1.0.md).
+[`docs/release-notes-v0.1.0.md`](../release-notes-v0.1.0.md).
 
 ## Lessons
 

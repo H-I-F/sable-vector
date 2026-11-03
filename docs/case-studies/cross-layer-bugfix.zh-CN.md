@@ -134,7 +134,7 @@ def open_snapshots(self) -> int:
    对着 `@main` 构建，等于说「碰巧存在的那个提交」，这正是发布之后复现不了的原因。
 4. 给 `sable` 的两份 README 加一节 `## Ecosystem` 指回这里，让两边都能发现这层关系。
 
-当下那份完整记录也挂在 v0.1.0 公告里：[`docs/RELEASE_NOTES_v0.1.0.md`](../RELEASE_NOTES_v0.1.0.zh-CN.md)。
+当下那份完整记录也挂在 v0.1.0 公告里：[`docs/release-notes-v0.1.0.md`](../release-notes-v0.1.0.zh-CN.md)。
 
 ## 几点教训
 

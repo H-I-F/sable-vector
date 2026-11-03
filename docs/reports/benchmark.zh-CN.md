@@ -1,6 +1,6 @@
-[English](benchmark-2026-11.md) | [简体中文](benchmark-2026-11.zh-CN.md)
+[English](benchmark.md) | [简体中文](benchmark.zh-CN.md)
 
-# ANN 基准实测 — 2026 年 11 月
+# ANN 基准实测
 
 `benchmarks/bench_vector.py` 的一次实测，把数字摆出来，好让 `nprobe` 照着数据挑，而不是凭感觉。
 脚本自带断言：常驻的 `FlatIndex` 是穷举的，recall 按构造就是 1.0，下面每个近似数字都是用
