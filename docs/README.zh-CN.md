@@ -25,6 +25,8 @@
   持久化的混合检索、前置/后置过滤、IVF、离线适配器。
 - [v0.1.1](RELEASE_NOTES_v0.1.1.md) / [简体中文](RELEASE_NOTES_v0.1.1.zh-CN.md) —— MCP stdio
   服务端、`mcp<2` 固定，以及 quickstart 的几处更正。
+- [v0.1.2](RELEASE_NOTES_v0.1.2.md) / [简体中文](RELEASE_NOTES_v0.1.2.zh-CN.md) —— 补齐中英双语的
+  FAQ、工程实践、实践配方与笔记，引擎没有改动。
 
 ## 案例研究
 
