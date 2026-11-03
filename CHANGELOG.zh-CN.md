@@ -30,6 +30,31 @@
   pip install -e ".[sable,mcp]"
   ```
 
+## [0.1.2] — 2026-11-03
+
+一次文档发版。工程笔记现在中英双语覆盖到项目的每个角落，每篇都能从双语索引直达。键空间布局、
+索引格式、公开 API、依赖固定、查询行为都没变：0.1.1 写出来的集合，用 0.1.2 打开不需要迁移。
+
+`sable` 依赖仍固定在 `v0.1.1`。那个上游 tag 正是修复本项目的并发测试暴露出的快照读缺陷的版本，
+而 0.1.2 没有任何行为变化——挪动固定值没有收益，反倒会损失可复现性。
+
+### 新增
+
+- **双语工程笔记索引** —— `docs/README.md` 与 `docs/README.zh-CN.md`，含板块表、源码地图和
+  推荐阅读顺序。
+- **五篇双语架构决策记录** —— 单一键空间、payload 提交记录、两种过滤策略、float32 编解码与
+  分数方向、依赖固定。
+- **FAQ、三篇工程实践指南与两篇实践配方**，均为双语 —— `docs/faq/vector-search-qa.md`、
+  `docs/skills/` 那组（零拷贝编解码、持久写入、混合查询策略）、`docs/recipes/` 那组
+  （混合检索、选择 `nprobe`）。
+- **实测报告、发版公告与既有笔记的中文版** —— `docs/reports/benchmark-2026-11.md`、v0.1.0 与
+  v0.1.1 公告、跨层案例复盘，以及 `CHANGELOG`、`CONTRIBUTING`、`SECURITY`、`PROGRESS` 的中文版。
+- **两份 README 的双语入口** —— 文档表格与治理清单里每条都成对给出 English 和简体中文。
+
+### 变更
+
+- `pyproject.toml` 与 `sable_vector.__version__` 的版本从 `0.1.1` 提到 `0.1.2`。
+
 ## [0.1.1] — 2026-10-31
 
 首个 tag 之后的跟进版本，补上 MCP 接入面，也把那次跨层排障记了下来。
@@ -104,6 +129,7 @@
 
 - 构建在 `sable` 存储引擎之上，固定到 `v0.1.1`（快照读一致性修复，顺带解决了并发读的两个回归测试）。
 
-[Unreleased]: https://github.com/H-I-F/sable-vector/compare/v0.1.1...HEAD
+[未发布]: https://github.com/H-I-F/sable-vector/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.2
 [0.1.1]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.1
 [0.1.0]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.0

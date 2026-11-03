@@ -26,6 +26,8 @@
   release: durable hybrid retrieval, pre/post filtering, IVF, offline adapter.
 - [v0.1.1](RELEASE_NOTES_v0.1.1.md) / [简体中文](RELEASE_NOTES_v0.1.1.zh-CN.md) — the MCP stdio
   server, the `mcp<2` pin, and the quickstart corrections.
+- [v0.1.2](RELEASE_NOTES_v0.1.2.md) / [简体中文](RELEASE_NOTES_v0.1.2.zh-CN.md) — the bilingual
+  FAQ, skills, recipes and notes; no engine changes.
 
 ## Case studies
 

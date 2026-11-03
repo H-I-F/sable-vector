@@ -347,7 +347,7 @@ runnable recipes, and a measured benchmark report. Start there when you need to 
 | [Recipes](docs/README.md#recipes-building-on-the-engine) | tenant-scoped hybrid retrieval and choosing `nprobe` against measured numbers |
 | [Case study](docs/case-studies/cross-layer-bugfix.md) | the upstream snapshot-read bug and its pure-`sable` reproduction |
 | [Benchmark report](docs/reports/benchmark-2026-11.md) | recall, latency and `nprobe` measured on two corpus sizes |
-| [Release notes](docs/RELEASE_NOTES_v0.1.1.md) | what shipped in v0.1.1 and v0.1.0, and the limits of each |
+| [Release notes](docs/RELEASE_NOTES_v0.1.2.md) | what shipped in v0.1.2, v0.1.1 and v0.1.0, and the limits of each |
 
 ## Documentation & governance
 
@@ -357,6 +357,7 @@ runnable recipes, and a measured benchmark report. Start there when you need to 
 - Security policy: [SECURITY.md](./SECURITY.md) · [简体中文](./SECURITY.zh-CN.md)
 - Release history: [CHANGELOG.md](./CHANGELOG.md) · [简体中文](./CHANGELOG.zh-CN.md)
 - Evolution ledger (one tick per PR): [PROGRESS.md](./PROGRESS.md) · [简体中文](./PROGRESS.zh-CN.md)
+- v0.1.2 announcement: [docs/RELEASE_NOTES_v0.1.2.md](./docs/RELEASE_NOTES_v0.1.2.md) · [简体中文](./docs/RELEASE_NOTES_v0.1.2.zh-CN.md)
 - v0.1.1 announcement: [docs/RELEASE_NOTES_v0.1.1.md](./docs/RELEASE_NOTES_v0.1.1.md) · [简体中文](./docs/RELEASE_NOTES_v0.1.1.zh-CN.md)
 - v0.1.0 announcement: [docs/RELEASE_NOTES_v0.1.0.md](./docs/RELEASE_NOTES_v0.1.0.md) · [简体中文](./docs/RELEASE_NOTES_v0.1.0.zh-CN.md)
 - Case study — the cross-layer bug hunt: [docs/case-studies/cross-layer-bugfix.md](./docs/case-studies/cross-layer-bugfix.md) · [简体中文](./docs/case-studies/cross-layer-bugfix.zh-CN.md)

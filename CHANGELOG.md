@@ -35,6 +35,42 @@ onward. The 0.1.x line is the initial, pre-stable API surface.
   pip install -e ".[sable,mcp]"
   ```
 
+## [0.1.2] — 2026-11-03
+
+A documentation release. The engineering notes now cover the whole project in
+both English and 简体中文, and every page is reachable from a bilingual index. No
+key-space layout, index format, public API, dependency pin or query behaviour
+changed: a collection written by 0.1.1 opens unchanged under 0.1.2.
+
+The `sable` dependency stays pinned to `v0.1.1`. That is the upstream release
+carrying the snapshot-read fix this project's concurrency tests uncovered, and
+0.1.2 ships no behaviour change — there is nothing to gain from moving the pin
+and something to lose in reproducibility.
+
+### Added
+
+- **Bilingual engineering-notes indexes** — `docs/README.md` and
+  `docs/README.zh-CN.md`, with a section table, a source map and a suggested
+  reading order.
+- **Five architecture decision records** in both languages — the single key
+  space, the payload commit record, the two filter strategies, the float32 codec
+  and score orientation, and the pinned dependencies.
+- **FAQ, three implementation guides and two recipes**, all bilingual —
+  `docs/faq/vector-search-qa.md`, the `docs/skills/` set (zero-copy codec,
+  durable upsert, hybrid query strategies) and the `docs/recipes/` set (hybrid
+  retrieval, choosing `nprobe`).
+- **A measured benchmark report, release announcements and Chinese editions of
+  the existing notes** — `docs/reports/benchmark-2026-11.md`, the v0.1.0 and
+  v0.1.1 announcements, the cross-layer case study, and Chinese versions of
+  `CHANGELOG`, `CONTRIBUTING`, `SECURITY` and `PROGRESS`.
+- **Bilingual wiring in both READMEs** — a Documentation table and a governance
+  list pairing English and 简体中文 for every entry.
+
+### Changed
+
+- Version `0.1.1` → `0.1.2` in `pyproject.toml` and
+  `sable_vector.__version__`.
+
 ## [0.1.1] — 2026-10-31
 
 Follow-up to the first tagged release, adding the Model Context Protocol surface
@@ -131,6 +167,7 @@ First tagged release of the embedded hybrid vector engine.
 - Built on `sable` storage engine, pinned to `v0.1.1` (snapshot-read
   consistency fix that also resolved the concurrent-read regression tests).
 
-[Unreleased]: https://github.com/H-I-F/sable-vector/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/H-I-F/sable-vector/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.2
 [0.1.1]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.1
 [0.1.0]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.0
