@@ -14,6 +14,7 @@
   <a href="https://github.com/H-I-F"><img src="https://img.shields.io/badge/H.I.F-Digital_Commons-black" alt="H.I.F"></a>
   <a href="https://github.com/H-I-F/sable-vector/releases"><img src="https://img.shields.io/github/v/release/H-I-F/sable-vector" alt="Release"></a>
   <a href="https://github.com/H-I-F/sable-vector/actions/workflows/ci.yml"><img src="https://github.com/H-I-F/sable-vector/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="./docs/README.md"><img src="https://img.shields.io/badge/docs-engineering%20notes-blue.svg" alt="Docs"></a>
   <img src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg" alt="Python">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
   <img src="https://img.shields.io/badge/storage-sable%20LSM-blue.svg" alt="Storage">
@@ -329,16 +330,32 @@ when the client disconnects.
 | `src/sable_vector/adapter/` | `VectorStore` protocol adapter |
 | `src/sable_vector/recovery.py` | Crash rebuild & index health |
 
+## Documentation
+
+The engineering notes under [`docs/`](docs/README.md) are the long-form companion to
+this README: release announcements, the cross-layer post-mortem, five architecture
+decision records, and a measured benchmark report. Start there when you need to know
+**why**, not just how. Every note is available in English and 简体中文.
+
+| Entry | What it covers |
+| --- | --- |
+| [Engineering notes index](docs/README.md) | all of the below, plus a source map and a suggested reading order |
+| [ADR-001 … ADR-005](docs/README.md#architecture-decision-records) | one key space, the payload commit boundary, the two filter strategies, the codec, the dependency pins |
+| [Case study](docs/case-studies/cross-layer-bugfix.md) | the upstream snapshot-read bug and its pure-`sable` reproduction |
+| [Benchmark report](docs/reports/benchmark-2026-11.md) | recall, latency and `nprobe` measured on two corpus sizes |
+| [Release notes](docs/RELEASE_NOTES_v0.1.1.md) | what shipped in v0.1.1 and v0.1.0, and the limits of each |
+
 ## Documentation & governance
 
 - Architecture and usage: this README and [简体中文](./README.zh-CN.md)
-- Contributor guide: [CONTRIBUTING.md](./CONTRIBUTING.md)
-- Security policy: [SECURITY.md](./SECURITY.md)
-- Release history: [CHANGELOG.md](./CHANGELOG.md)
-- Evolution ledger (one tick per PR): [PROGRESS.md](./PROGRESS.md)
-- v0.1.1 announcement: [docs/RELEASE_NOTES_v0.1.1.md](./docs/RELEASE_NOTES_v0.1.1.md)
-- v0.1.0 announcement: [docs/RELEASE_NOTES_v0.1.0.md](./docs/RELEASE_NOTES_v0.1.0.md)
-- Case study — the cross-layer bug hunt: [docs/case-studies/cross-layer-bugfix.md](./docs/case-studies/cross-layer-bugfix.md)
+- Engineering notes: [docs/README.md](./docs/README.md) · [简体中文](./docs/README.zh-CN.md)
+- Contributor guide: [CONTRIBUTING.md](./CONTRIBUTING.md) · [简体中文](./CONTRIBUTING.zh-CN.md)
+- Security policy: [SECURITY.md](./SECURITY.md) · [简体中文](./SECURITY.zh-CN.md)
+- Release history: [CHANGELOG.md](./CHANGELOG.md) · [简体中文](./CHANGELOG.zh-CN.md)
+- Evolution ledger (one tick per PR): [PROGRESS.md](./PROGRESS.md) · [简体中文](./PROGRESS.zh-CN.md)
+- v0.1.1 announcement: [docs/RELEASE_NOTES_v0.1.1.md](./docs/RELEASE_NOTES_v0.1.1.md) · [简体中文](./docs/RELEASE_NOTES_v0.1.1.zh-CN.md)
+- v0.1.0 announcement: [docs/RELEASE_NOTES_v0.1.0.md](./docs/RELEASE_NOTES_v0.1.0.md) · [简体中文](./docs/RELEASE_NOTES_v0.1.0.zh-CN.md)
+- Case study — the cross-layer bug hunt: [docs/case-studies/cross-layer-bugfix.md](./docs/case-studies/cross-layer-bugfix.md) · [简体中文](./docs/case-studies/cross-layer-bugfix.zh-CN.md)
 
 ## License
 

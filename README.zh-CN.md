@@ -14,6 +14,7 @@
   <a href="https://github.com/H-I-F"><img src="https://img.shields.io/badge/H.I.F-Digital_Commons-black" alt="H.I.F"></a>
   <a href="https://github.com/H-I-F/sable-vector/releases"><img src="https://img.shields.io/github/v/release/H-I-F/sable-vector" alt="Release"></a>
   <a href="https://github.com/H-I-F/sable-vector/actions/workflows/ci.yml"><img src="https://github.com/H-I-F/sable-vector/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="./docs/README.md"><img src="https://img.shields.io/badge/docs-engineering%20notes-blue.svg" alt="Docs"></a>
   <img src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg" alt="Python">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
   <img src="https://img.shields.io/badge/storage-sable%20LSM-blue.svg" alt="Storage">
@@ -282,16 +283,31 @@ sable-vector serve-mcp
 | `src/sable_vector/adapter/` | `VectorStore` 协议适配器 |
 | `src/sable_vector/recovery.py` | 崩溃重建与索引健康 |
 
+## 工程文档
+
+[`docs/`](docs/README.zh-CN.md) 下的工程笔记是本主文档的长文配套：发版公告、跨层排障复盘、
+五篇架构决策记录，以及一份带实测数字的基准报告。当你需要的是「**为什么**」而不只是「怎么做」时，
+从这里开始。每篇都有中英两份。
+
+| 入口 | 内容 |
+| --- | --- |
+| [工程笔记索引](docs/README.zh-CN.md) | 下面全部内容，另附源码地图与推荐阅读顺序 |
+| [ADR-001 … ADR-005](docs/README.zh-CN.md#架构决策记录) | 单一键空间、payload 提交边界、两种过滤策略、编解码、依赖固定 |
+| [案例复盘](docs/case-studies/cross-layer-bugfix.zh-CN.md) | 上游快照读缺陷，以及纯 `sable` 复现 |
+| [实测报告](docs/reports/benchmark-2026-11.zh-CN.md) | 两档语料规模下的 recall、延迟与 `nprobe` |
+| [发版公告](docs/RELEASE_NOTES_v0.1.1.zh-CN.md) | v0.1.1 与 v0.1.0 各自交付了什么、各自的限制 |
+
 ## 文档与治理
 
 - 架构与用法：本中文文档与 [English](./README.md)
-- 贡献指南：[CONTRIBUTING.md](./CONTRIBUTING.md)
-- 安全策略：[SECURITY.md](./SECURITY.md)
-- 发布历史：[CHANGELOG.md](./CHANGELOG.md)
-- 演进台账（每个 PR 一个勾）：[PROGRESS.md](./PROGRESS.md)
-- v0.1.1 发布公告：[docs/RELEASE_NOTES_v0.1.1.md](./docs/RELEASE_NOTES_v0.1.1.md)
-- v0.1.0 发布公告：[docs/RELEASE_NOTES_v0.1.0.md](./docs/RELEASE_NOTES_v0.1.0.md)
-- 案例复盘——跨层 Bug 排查记：[docs/case-studies/cross-layer-bugfix.md](./docs/case-studies/cross-layer-bugfix.md)
+- 工程笔记：[docs/README.zh-CN.md](./docs/README.zh-CN.md) · [English](./docs/README.md)
+- 贡献指南：[CONTRIBUTING.md](./CONTRIBUTING.md) · [简体中文](./CONTRIBUTING.zh-CN.md)
+- 安全策略：[SECURITY.md](./SECURITY.md) · [简体中文](./SECURITY.zh-CN.md)
+- 发布历史：[CHANGELOG.md](./CHANGELOG.md) · [简体中文](./CHANGELOG.zh-CN.md)
+- 演进台账（每个 PR 一个勾）：[PROGRESS.md](./PROGRESS.md) · [简体中文](./PROGRESS.zh-CN.md)
+- v0.1.1 发布公告：[docs/RELEASE_NOTES_v0.1.1.md](./docs/RELEASE_NOTES_v0.1.1.md) · [简体中文](./docs/RELEASE_NOTES_v0.1.1.zh-CN.md)
+- v0.1.0 发布公告：[docs/RELEASE_NOTES_v0.1.0.md](./docs/RELEASE_NOTES_v0.1.0.md) · [简体中文](./docs/RELEASE_NOTES_v0.1.0.zh-CN.md)
+- 案例复盘——跨层 Bug 排查记：[docs/case-studies/cross-layer-bugfix.md](./docs/case-studies/cross-layer-bugfix.md) · [简体中文](./docs/case-studies/cross-layer-bugfix.zh-CN.md)
 
 ## 许可证
 
