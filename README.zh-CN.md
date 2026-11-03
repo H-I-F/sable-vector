@@ -286,13 +286,16 @@ sable-vector serve-mcp
 ## 工程文档
 
 [`docs/`](docs/README.zh-CN.md) 下的工程笔记是本主文档的长文配套：发版公告、跨层排障复盘、
-五篇架构决策记录，以及一份带实测数字的基准报告。当你需要的是「**为什么**」而不只是「怎么做」时，
-从这里开始。每篇都有中英两份。
+五篇架构决策记录、三篇底层实现指南、一份硬核问答、两篇可运行配方，以及带实测数字的基准报告。
+当你需要的是「**为什么**」而不只是「怎么做」时，从这里开始。每篇都有中英两份。
 
 | 入口 | 内容 |
 | --- | --- |
 | [工程笔记索引](docs/README.zh-CN.md) | 下面全部内容，另附源码地图与推荐阅读顺序 |
 | [ADR-001 … ADR-005](docs/README.zh-CN.md#架构决策记录) | 单一键空间、payload 提交边界、两种过滤策略、编解码、依赖固定 |
+| [工程实践 Skills](docs/README.zh-CN.md#工程实践-skills底层实现指南) | 零拷贝编解码、持久写入与崩溃重建、混合查询策略 |
+| [硬核问答 FAQ](docs/faq/vector-search-qa.zh-CN.md) | 八句「干嘛不直接……」，失效方式照实写 |
+| [实践配方 Recipes](docs/README.zh-CN.md#实践配方-recipes) | 按租户收窄的混合检索、照实测数字选 `nprobe` |
 | [案例复盘](docs/case-studies/cross-layer-bugfix.zh-CN.md) | 上游快照读缺陷，以及纯 `sable` 复现 |
 | [实测报告](docs/reports/benchmark-2026-11.zh-CN.md) | 两档语料规模下的 recall、延迟与 `nprobe` |
 | [发版公告](docs/RELEASE_NOTES_v0.1.1.zh-CN.md) | v0.1.1 与 v0.1.0 各自交付了什么、各自的限制 |
@@ -308,6 +311,11 @@ sable-vector serve-mcp
 - v0.1.1 发布公告：[docs/RELEASE_NOTES_v0.1.1.md](./docs/RELEASE_NOTES_v0.1.1.md) · [简体中文](./docs/RELEASE_NOTES_v0.1.1.zh-CN.md)
 - v0.1.0 发布公告：[docs/RELEASE_NOTES_v0.1.0.md](./docs/RELEASE_NOTES_v0.1.0.md) · [简体中文](./docs/RELEASE_NOTES_v0.1.0.zh-CN.md)
 - 案例复盘——跨层 Bug 排查记：[docs/case-studies/cross-layer-bugfix.md](./docs/case-studies/cross-layer-bugfix.md) · [简体中文](./docs/case-studies/cross-layer-bugfix.zh-CN.md)
+- 实现指南：[零拷贝编解码](./docs/skills/zero-copy-codec.md) · [简体中文](./docs/skills/zero-copy-codec.zh-CN.md)
+- 实现指南：[持久写入](./docs/skills/durable-upsert.md) · [简体中文](./docs/skills/durable-upsert.zh-CN.md)
+- 实现指南：[混合查询策略](./docs/skills/hybrid-query-strategies.md) · [简体中文](./docs/skills/hybrid-query-strategies.zh-CN.md)
+- 硬核问答：[English](./docs/faq/vector-search-qa.md) · [简体中文](./docs/faq/vector-search-qa.zh-CN.md)
+- 实践配方：[混合检索](./docs/recipes/hybrid-retrieval.md) · [简体中文](./docs/recipes/hybrid-retrieval.zh-CN.md) · [选 `nprobe`](./docs/recipes/ivf-nprobe-tuning.md) · [简体中文](./docs/recipes/ivf-nprobe-tuning.zh-CN.md)
 
 ## 许可证
 

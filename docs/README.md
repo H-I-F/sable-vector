@@ -14,6 +14,9 @@
 | [Release notes](#release-notes) | upgrading between versions | one announcement per tag, bilingual |
 | [Case studies](#case-studies) | post-mortems, design review | narrative with the reproduction |
 | [Decision records](#architecture-decision-records) | anyone changing the key space or write contract | ADR-001 … ADR-005, bilingual |
+| [Skills](#skills-low-level-implementation-practice) | engineers implementing or porting the engine | narrative guides with code and tables |
+| [FAQ](#faq-hard-vector-search-questions) | interviews, design reviews, "why not just…" pushback | bilingual Q&A with Mermaid diagrams |
+| [Recipes](#recipes-building-on-the-engine) | solving a problem *with* the engine | runnable patterns, cost tables |
 | [Benchmarks](#benchmarks) | picking an operating point | runnable harness + measured report |
 | [Source map](#source-map) | finding the code behind a concept | module table |
 
@@ -53,6 +56,44 @@ prefix, a commit boundary or a dependency pin.
   [简体中文](decisions/adr-005-pinned-dependencies.zh-CN.md) — `mcp<2` and the `sable@v0.1.1`
   direct reference, and why Dependabot is told to leave them alone.
 
+## Skills: low-level implementation practice
+
+Three guides that read the source in the order the invariants demand, each with
+code, a failure-mode table and a checklist.
+
+- [Zero-copy vectors: the codec and the score orientation](skills/zero-copy-codec.md) /
+  [简体中文](skills/zero-copy-codec.zh-CN.md) — `<f4` images with no framing,
+  `np.frombuffer` views, `writeable=True` copies, and why all three metrics
+  share one score direction.
+- [Durable upsert: staging, commit records and crash rebuild](skills/durable-upsert.md) /
+  [简体中文](skills/durable-upsert.zh-CN.md) — `_write_batch` stages every key
+  unsynced and commits once on the payload; `reclaim()` and `recover()` rebuild
+  derived state as a pure function of what is committed.
+- [Hybrid query strategies: two executors, two cost curves](skills/hybrid-query-strategies.md) /
+  [简体中文](skills/hybrid-query-strategies.zh-CN.md) — `matching_ids`, the sorted
+  candidate gather, the post-filter walk, and deterministic race tests with
+  `threading.Barrier`.
+
+## FAQ: hard vector-search questions
+
+Eight "why not just…" questions in five groups — one key space, the commit
+boundary, bytes and scores, the two filter strategies, approximate search against
+measured numbers, and the pinned dependencies. Each answer points at a real symbol.
+
+- English: [Hybrid retrieval, answered honestly](faq/vector-search-qa.md)
+- 简体中文: [混合检索：把追问回答清楚](faq/vector-search-qa.zh-CN.md)
+
+## Recipes: building on the engine
+
+- [Tenant-scoped hybrid retrieval](recipes/hybrid-retrieval.md) /
+  [简体中文](recipes/hybrid-retrieval.zh-CN.md) — declare `indexed_fields` at open
+  time, resolve the predicate before scoring, and read `scored` rather than just
+  the result list. Includes the three ways the query can quietly go wrong.
+- [Choosing `nprobe` against measured numbers](recipes/ivf-nprobe-tuning.md) /
+  [简体中文](recipes/ivf-nprobe-tuning.zh-CN.md) — a decision procedure built on
+  the November 2026 run, including why exact search is the right default at
+  1,000 vectors and why the p95 outlier is left in the table.
+
 ## Benchmarks
 
 [`benchmarks/bench_vector.py`](../benchmarks/bench_vector.py) is self-asserting: the resident
@@ -89,11 +130,16 @@ it rather than assumed. Run it with `python -m benchmarks.bench_vector --dim 153
 2. [ADR-001](decisions/adr-001-single-keyspace.md) then
    [ADR-002](decisions/adr-002-payload-commit-record.md) — the two decisions every durability claim
    rests on.
-3. [ADR-003](decisions/adr-003-dual-filter-strategies.md) — why there are two executors instead of
-   one clever one.
-4. [Case study](case-studies/cross-layer-bugfix.md) — what happens when an upstream invariant is
+3. [Skills → Durable upsert](skills/durable-upsert.md) then
+   [Skills → Zero-copy codec](skills/zero-copy-codec.md) — how those decisions look in the source.
+4. [ADR-003](decisions/adr-003-dual-filter-strategies.md) and
+   [Skills → Hybrid query strategies](skills/hybrid-query-strategies.md) — why there are two
+   executors instead of one clever one.
+5. [Case study](case-studies/cross-layer-bugfix.md) — what happens when an upstream invariant is
    only implemented on one read path.
-5. [Benchmark report](reports/benchmark-2026-11.md) — before choosing an `nprobe`.
+6. [FAQ](faq/vector-search-qa.md) — the "why not just…" pushback, pre-answered.
+7. [Recipes → Choosing `nprobe`](recipes/ivf-nprobe-tuning.md) and the
+   [benchmark report](reports/benchmark-2026-11.md) — before choosing an operating point.
 
 ---
 
