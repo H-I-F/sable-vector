@@ -15,7 +15,7 @@
 | [Case studies](#case-studies) | post-mortems, design review | narrative with the reproduction |
 | [Decision records](#architecture-decision-records) | anyone changing the key space or write contract | ADR-001 … ADR-005, bilingual |
 | [Skills](#skills-low-level-implementation-practice) | engineers implementing or porting the engine | narrative guides with code and tables |
-| [FAQ](#faq-hard-vector-search-questions) | interviews, design reviews, "why not just…" pushback | bilingual Q&A with Mermaid diagrams |
+| [FAQ](#faq-hard-vector-search-questions) | deep-dive questions, design reviews, "why not just…" pushback | bilingual Q&A with Mermaid diagrams |
 | [Recipes](#recipes-building-on-the-engine) | solving a problem *with* the engine | runnable patterns, cost tables |
 | [Benchmarks](#benchmarks) | picking an operating point | runnable harness + measured report |
 | [Source map](#source-map) | finding the code behind a concept | module table |
