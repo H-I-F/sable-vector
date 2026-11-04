@@ -28,6 +28,8 @@
   server, the `mcp<2` pin, and the quickstart corrections.
 - [v0.1.2](release-notes-v0.1.2.md) / [简体中文](release-notes-v0.1.2.zh-CN.md) — the bilingual
   FAQ, skills, recipes and notes; no engine changes.
+- [v0.1.3](release-notes-v0.1.3.md) / [简体中文](release-notes-v0.1.3.zh-CN.md) — explicit
+  behaviour hints on all three MCP tools, plus a contract test; no engine changes.
 
 ## Case studies
 

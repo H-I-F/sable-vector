@@ -7,6 +7,14 @@ onward. The 0.1.x line is the initial, pre-stable API surface.
 
 ## [Unreleased]
 
+## [0.1.3] — 2026-11-04
+
+The three MCP tools now declare all four behaviour hints explicitly, so a host
+can tell a read from a write before prompting for approval. This is metadata on
+the advertised tool list: the engine, the key space and every dependency pin are
+exactly as they were in 0.1.2. The tooling and governance items that had been
+sitting under `Unreleased` since the last tag are recorded here too.
+
 ### Added
 
 - **Behaviour hints on the MCP tools.** All three advertised tools now declare
@@ -24,6 +32,10 @@ onward. The 0.1.x line is the initial, pre-stable API surface.
   Dependabot cannot manage, recall@k gate, benchmark ground truth). It also
   applies `area/`, `size/` and `risk/` labels. Advisory only: it never merges,
   closes or approves. No model inference, no external service, no running cost.
+
+- **A contract test for the advertised tools.** `tests/test_mcp_server.py` now
+  asserts the tool set and the four boolean hints on every tool, keyed by wire
+  name. Dropping a hint or renaming a tool fails the suite.
 
 ### Changed
 
@@ -43,6 +55,9 @@ onward. The 0.1.x line is the initial, pre-stable API surface.
   ```sh
   pip install -e ".[sable,mcp]"
   ```
+
+- Version `0.1.2` → `0.1.3` in `pyproject.toml` and
+  `sable_vector.__version__`.
 
 ## [0.1.2] — 2026-11-03
 
@@ -176,7 +191,8 @@ First tagged release of the embedded hybrid vector engine.
 - Built on `sable` storage engine, pinned to `v0.1.1` (snapshot-read
   consistency fix that also resolved the concurrent-read regression tests).
 
-[Unreleased]: https://github.com/H-I-F/sable-vector/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/H-I-F/sable-vector/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.3
 [0.1.2]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.2
 [0.1.1]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.1
 [0.1.0]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.0

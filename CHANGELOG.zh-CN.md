@@ -8,6 +8,12 @@
 
 ## [未发布]
 
+## [0.1.3] — 2026-11-04
+
+三个 MCP 工具现在都显式给出四个行为标注，宿主在请用户批准调用之前，就能分清这是读还是写。
+这只是工具清单上的元数据：引擎、键空间、每一条依赖固定，都和 0.1.2 一模一样。上个 tag 之后
+一直挂在 `[未发布]` 段的工具与治理事项，也一并记进这里。
+
 ### 新增
 
 - **MCP 工具补上了行为标注。** 三个对外声明的工具现在都显式给出 `readOnlyHint`、
@@ -22,6 +28,9 @@
   `area/`、`size/`、`risk/` 标签。它只提建议，不合并、不关闭、不批准，不调模型、不连外部服务，
   也没有运行成本。
 
+- **一条锁定 MCP 工具契约的测试。** `tests/test_mcp_server.py` 按 wire name 断言对外声明的工具
+  集合，以及每个工具的四个布尔 hint。漏写 hint 或者改工具名，测试就会挂。
+
 ### 变更
 
 - **仓库迁到 [H.I.F](https://github.com/H-I-F) 组织下。** 规范地址现在是
@@ -35,6 +44,8 @@
   ```sh
   pip install -e ".[sable,mcp]"
   ```
+
+- `pyproject.toml` 与 `sable_vector.__version__` 的版本从 `0.1.2` 提到 `0.1.3`。
 
 ## [0.1.2] — 2026-11-03
 
@@ -135,7 +146,8 @@
 
 - 构建在 `sable` 存储引擎之上，固定到 `v0.1.1`（快照读一致性修复，顺带解决了并发读的两个回归测试）。
 
-[未发布]: https://github.com/H-I-F/sable-vector/compare/v0.1.2...HEAD
+[未发布]: https://github.com/H-I-F/sable-vector/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.3
 [0.1.2]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.2
 [0.1.1]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.1
 [0.1.0]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.0
