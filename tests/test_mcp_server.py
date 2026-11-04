@@ -26,6 +26,15 @@ from sable_vector.adapter.mcp_server import (  # noqa: E402
 
 EXPECTED = {SEARCH, UPSERT, DESCRIBE}
 
+# Spelled out rather than imported so the wire names are pinned by the test:
+# renaming a tool must break something here, not silently change the protocol.
+# Order: readOnlyHint, destructiveHint, idempotentHint, openWorldHint.
+EXPECTED_HINTS: dict[str, tuple[bool, bool, bool, bool]] = {
+    "sable_vector_search": (True, False, True, False),
+    "sable_vector_upsert": (False, True, True, False),
+    "sable_vector_describe": (True, False, True, False),
+}
+
 _DIM = 8
 
 
@@ -48,6 +57,25 @@ def test_every_advertised_tool_has_a_valid_object_schema() -> None:
         assert schema["type"] == "object", f"{tool.name} schema must be an object"
         assert "collection" in schema["properties"], f"{tool.name} cannot locate a store"
         assert "collection" in schema["required"], f"{tool.name} must require the collection"
+
+
+def test_every_tool_declares_all_four_behaviour_hints() -> None:
+    tools = {tool.name: tool for tool in _run(list_tools())}
+
+    assert set(tools) == set(EXPECTED_HINTS), "the advertised tool set changed"
+    for name, expected in EXPECTED_HINTS.items():
+        hints = tools[name].annotations
+        assert hints is not None, f"{name} advertises no annotations"
+        actual = (
+            hints.readOnlyHint,
+            hints.destructiveHint,
+            hints.idempotentHint,
+            hints.openWorldHint,
+        )
+        assert all(isinstance(value, bool) for value in actual), (
+            f"{name} leaves a hint implicit: {actual}"
+        )
+        assert actual == expected, f"{name} hints do not match its behaviour: {actual}"
 
 
 def test_write_then_read_roundtrip(collection: str) -> None:

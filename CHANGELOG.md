@@ -9,6 +9,15 @@ onward. The 0.1.x line is the initial, pre-stable API surface.
 
 ### Added
 
+- **Behaviour hints on the MCP tools.** All three advertised tools now declare
+  `readOnlyHint`, `destructiveHint`, `idempotentHint` and `openWorldHint`
+  explicitly, so a host can tell a read from a write before asking a user to
+  approve a call. Search and describe are read-only and idempotent; upsert is a
+  replacing write, destructive but logically idempotent. Every tool works on a
+  local collection directory, so `openWorldHint` is false throughout. The
+  `mcp>=1.9,<2` pin is unchanged: `ToolAnnotations` exists across the whole
+  pinned range.
+
 - **Deterministic PR review report.** Every pull request now receives one sticky
   comment with a change map, live CI gate status and repo-specific rigor notes
   (`mcp <2` decorator API, the `sable @ git+...@v0.1.1` direct reference that

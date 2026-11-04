@@ -10,6 +10,12 @@
 
 ### 新增
 
+- **MCP 工具补上了行为标注。** 三个对外声明的工具现在都显式给出 `readOnlyHint`、
+  `destructiveHint`、`idempotentHint`、`openWorldHint`，宿主在请用户批准一次调用之前，
+  就能分清这是读还是写。检索和 describe 是只读且幂等的；upsert 是覆盖式写入，有破坏性，
+  但逻辑上幂等。三个工具都只操作本地集合目录，所以 `openWorldHint` 一律为 false。
+  `mcp>=1.9,<2` 的固定范围不变：整个范围内都有 `ToolAnnotations`。
+
 - **PR 评审报告改成确定性的了。** 每个 PR 会收到一条固定评论，里面是变更地图、CI 门禁的实时
   状态，以及针对本仓库的几条较真提示：`mcp <2` 的装饰器 API、Dependabot 管不了的
   `sable @ git+...@v0.1.1` 直引用、recall@k 门禁、基准测试的 ground truth。顺带打上
