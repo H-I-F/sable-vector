@@ -47,6 +47,13 @@ _METRIC = {
 
 _DEFAULT_TOP_K = 5
 
+# Tool hints are advisory, but hosts use them to decide which calls need a
+# confirmation prompt. All four are stated explicitly on every tool: leaving one
+# out hands the SDK's default to the client, and three of those defaults sit at
+# the unsafe end. Every tool here works on a local collection directory, so
+# openWorldHint is false throughout. Search and describe only read, while upsert
+# replaces an existing id -- a destructive but logically idempotent write.
+
 
 def _self_version() -> str:
     """Installed version, so the handshake can report something honest."""
@@ -100,6 +107,12 @@ async def list_tools() -> list[types.Tool]:
                 },
                 "required": ["collection", "query"],
             },
+            annotations=types.ToolAnnotations(
+                readOnlyHint=True,
+                destructiveHint=False,
+                idempotentHint=True,
+                openWorldHint=False,
+            ),
         ),
         types.Tool(
             name=UPSERT,
@@ -125,6 +138,12 @@ async def list_tools() -> list[types.Tool]:
                 },
                 "required": ["collection", "id", "values"],
             },
+            annotations=types.ToolAnnotations(
+                readOnlyHint=False,
+                destructiveHint=True,
+                idempotentHint=True,
+                openWorldHint=False,
+            ),
         ),
         types.Tool(
             name=DESCRIBE,
@@ -134,6 +153,12 @@ async def list_tools() -> list[types.Tool]:
                 "properties": {"collection": _COLLECTION},
                 "required": ["collection"],
             },
+            annotations=types.ToolAnnotations(
+                readOnlyHint=True,
+                destructiveHint=False,
+                idempotentHint=True,
+                openWorldHint=False,
+            ),
         ),
     ]
 
