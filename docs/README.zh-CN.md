@@ -29,6 +29,8 @@
   FAQ、工程实践、实践配方与笔记，引擎没有改动。
 - [v0.1.3](release-notes-v0.1.3.md) / [简体中文](release-notes-v0.1.3.zh-CN.md) —— 三个 MCP 工具
   补齐显式的行为标注，另加一条契约测试，引擎没有改动。
+- [v0.1.4](release-notes-v0.1.4.md) / [简体中文](release-notes-v0.1.4.zh-CN.md) —— 依赖自动合并、
+  每月分组的 Dependabot，以及往后发版的约定。
 
 ## 案例研究
 

@@ -7,6 +7,36 @@ onward. The 0.1.x line is the initial, pre-stable API surface.
 
 ## [Unreleased]
 
+## [0.1.4] — 2026-11-11
+
+A maintenance release. The engine, the key space, the index format, the public
+API, query behaviour and every dependency pin are exactly as they were in 0.1.3;
+a collection written by 0.1.3 opens unchanged. What this version records is a
+change to how the repository is maintained, and the rule for future releases:
+from now on, work that does not touch the engine merges automatically and no
+longer gets a tag of its own.
+
+### Added
+
+- **Auto-merge for dependency updates.** A `workflow_run` workflow arms
+  `auto-merge` on a Dependabot pull request once CI is green. Branch protection
+  still has the final say — required checks, a linear history and resolved
+  conversations all have to pass before the merge lands — so a failing build
+  never reaches `main`. It runs on the default branch, needs no extra token or
+  third-party action, and only touches pull requests opened by Dependabot.
+
+### Changed
+
+- **Dependabot scans monthly, in groups.** The pip, GitHub Actions and Docker
+  ecosystems moved off the weekly schedule and each group into a single pull
+  request. The `mcp>=2` ignore is unchanged: Dependabot still leaves that
+  family alone, because a 2.x release breaks the `@server.list_tools` API.
+- **Automated security fixes are enabled.** Slowing routine updates down does
+  not slow down a reported vulnerability, which still gets its own fix pull
+  request.
+- Version `0.1.3` → `0.1.4` in `pyproject.toml` and
+  `sable_vector.__version__`.
+
 ## [0.1.3] — 2026-11-04
 
 The three MCP tools now declare all four behaviour hints explicitly, so a host
@@ -191,7 +221,8 @@ First tagged release of the embedded hybrid vector engine.
 - Built on `sable` storage engine, pinned to `v0.1.1` (snapshot-read
   consistency fix that also resolved the concurrent-read regression tests).
 
-[Unreleased]: https://github.com/H-I-F/sable-vector/compare/v0.1.3...HEAD
+[Unreleased]: https://github.com/H-I-F/sable-vector/compare/v0.1.4...HEAD
+[0.1.4]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.4
 [0.1.3]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.3
 [0.1.2]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.2
 [0.1.1]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.1

@@ -8,6 +8,27 @@
 
 ## [未发布]
 
+## [0.1.4] — 2026-11-11
+
+一次维护发版。引擎、键空间、索引格式、公开 API、查询行为、每一条依赖固定，都和 0.1.3 一模一样；
+0.1.3 写出来的集合照常打开。这一版记下的是仓库打理自己的方式变了，以及往后发版的规矩：
+从现在起，不碰引擎的改动自动合并，不再单独打 tag。
+
+### 新增
+
+- **依赖更新自动合并。** 一个 `workflow_run` workflow 会在 Dependabot 的 PR 转绿之后给它挂上
+  `auto-merge`。真正拍板的还是分支保护——必需检查、线性历史、所有对话已解决，都得过了才落地，
+  所以 CI 挂了绝不会进 `main`。它在默认分支上跑，不需要额外 token 或第三方 action，也只碰
+  Dependabot 开的 PR。
+
+### 变更
+
+- **Dependabot 改成每月扫、分组提。** pip、GitHub Actions、Docker 三个生态从每周挪到每月，
+  各自并成一个 PR。`mcp>=2` 的排除规则没动：Dependabot 依然不碰这一族，因为 2.x 会破坏
+  `@server.list_tools` 的 API。
+- **自动化安全修复打开了。** 常规更新慢下来，不代表报出来的漏洞也慢，它照样会有自己那条修复 PR。
+- `pyproject.toml` 与 `sable_vector.__version__` 的版本从 `0.1.3` 提到 `0.1.4`。
+
 ## [0.1.3] — 2026-11-04
 
 三个 MCP 工具现在都显式给出四个行为标注，宿主在请用户批准调用之前，就能分清这是读还是写。
@@ -146,7 +167,8 @@
 
 - 构建在 `sable` 存储引擎之上，固定到 `v0.1.1`（快照读一致性修复，顺带解决了并发读的两个回归测试）。
 
-[未发布]: https://github.com/H-I-F/sable-vector/compare/v0.1.3...HEAD
+[未发布]: https://github.com/H-I-F/sable-vector/compare/v0.1.4...HEAD
+[0.1.4]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.4
 [0.1.3]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.3
 [0.1.2]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.2
 [0.1.1]: https://github.com/H-I-F/sable-vector/releases/tag/v0.1.1
