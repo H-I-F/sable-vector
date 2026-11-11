@@ -30,6 +30,8 @@
   FAQ, skills, recipes and notes; no engine changes.
 - [v0.1.3](release-notes-v0.1.3.md) / [简体中文](release-notes-v0.1.3.zh-CN.md) — explicit
   behaviour hints on all three MCP tools, plus a contract test; no engine changes.
+- [v0.1.4](release-notes-v0.1.4.md) / [简体中文](release-notes-v0.1.4.zh-CN.md) — the auto-merge
+  workflow, monthly grouped Dependabot, and the rule for future releases.
 
 ## Case studies
 
