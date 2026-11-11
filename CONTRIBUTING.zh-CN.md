@@ -76,3 +76,19 @@ Co-authored-by: Leisurely Winston <winston_cn@yeah.net>
 - `ruff` 是 lint 和格式门禁，本地跑 `ruff check .`。
 - 目标 Python 是 3.10，别用 3.11 才有的语法，除非做了保护。
 - 合进来的代码里不许留 `TODO` / `FIXME` 占位；没做完的部分放到 PR 里讨论。
+
+## 维护与发版
+
+这里大多数改动根本不碰引擎：依赖升级、CI 与 workflow 调整、bot 配置、文档、dev 工具
+pin。这些算 `routine`。Dependabot 提的 `routine` PR，CI 绿了之后自动合并，不用你人工复核、
+也不用点合并，更不会为它单独发一个版本。
+
+怎么分档不是评审时临时商量的，是算出来的。`.github/scripts/change_policy.py` 是唯一的
+定义：读改动文件，返回三档之一——`core`（`src/` 下任何改动，或运行时依赖；唯一会发版的一档）、
+`review`（基础镜像或 action 引用跨版本跳转，留给人工看）、`routine`。自动合并 workflow、
+PR 报告、发版工具读的都是同一个判定，所以规则要改只改一处。改动文件列表为空或格式坏掉，
+一律算错误，绝不当成 `routine`。
+
+`policy-check.yml` 在每次 push 和 PR 上跑两个自检加一次发版一致性检查，它本身是必需状态
+检查。完整约定、包括发一次版的步骤，见
+[RELEASING.md](./RELEASING.md) · [简体中文](./RELEASING.zh-CN.md)。
