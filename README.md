@@ -356,6 +356,7 @@ runnable recipes, and a measured benchmark report. Start there when you need to 
 - Contributor guide: [CONTRIBUTING.md](./CONTRIBUTING.md) · [简体中文](./CONTRIBUTING.zh-CN.md)
 - Security policy: [SECURITY.md](./SECURITY.md) · [简体中文](./SECURITY.zh-CN.md)
 - Release history: [CHANGELOG.md](./CHANGELOG.md) · [简体中文](./CHANGELOG.zh-CN.md)
+- Release & maintenance policy: [RELEASING.md](./RELEASING.md) · [简体中文](./RELEASING.zh-CN.md)
 - Evolution ledger (one tick per PR): [PROGRESS.md](./PROGRESS.md) · [简体中文](./PROGRESS.zh-CN.md)
 - v0.1.4 announcement: [docs/release-notes-v0.1.4.md](./docs/release-notes-v0.1.4.md) · [简体中文](./docs/release-notes-v0.1.4.zh-CN.md)
 - v0.1.3 announcement: [docs/release-notes-v0.1.3.md](./docs/release-notes-v0.1.3.md) · [简体中文](./docs/release-notes-v0.1.3.zh-CN.md)

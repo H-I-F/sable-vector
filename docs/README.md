@@ -12,6 +12,7 @@
 | Section | For | Format |
 | --- | --- | --- |
 | [Release notes](#release-notes) | upgrading between versions | one announcement per tag, bilingual |
+| [Release & maintenance policy](../RELEASING.md) | what earns a version and what merges on its own | one live rule, enforced by CI |
 | [Case studies](#case-studies) | post-mortems, design review | narrative with the reproduction |
 | [Decision records](#architecture-decision-records) | anyone changing the key space or write contract | ADR-001 … ADR-005, bilingual |
 | [Skills](#skills-low-level-implementation-practice) | engineers implementing or porting the engine | narrative guides with code and tables |
